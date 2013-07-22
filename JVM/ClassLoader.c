@@ -3,7 +3,7 @@
 /**
 Vetor utilizado para pegar o nome das instrucoes para imprimir os mnemonicos do bytecode
 */
-const char* instructionOpcode[202] = 
+const char* instructionOpcode[202] =
 {
 	"nop", // 0x00
     "aconst_null",// 0x1
@@ -232,7 +232,7 @@ u2 readU2(FILE *fp)
     fread(&aux2, sizeof(u1), 1, fp);
 
     u2Read = (aux1 << 8) | aux2;
-    
+
     return u2Read;
 }
 
@@ -369,7 +369,7 @@ void readUnknownAttribute(FILE *fp, AttributeInfo *attributes)
 
 		attributes->AttributeType.UnknownAttribute.info = malloc((attributes->attributeLength) * sizeof(u1));
 
-		for (i = 0; i < attributes->attributeLength; i++) 
+		for (i = 0; i < attributes->attributeLength; i++)
 		{
 			attributes->AttributeType.UnknownAttribute.info[i] = readU1(fp);
 		}
@@ -447,7 +447,7 @@ void readInterfaces(ClassFile* class, FILE *fp)
 {
 	int i;
 
-	class->interfaces = (u2*)calloc(class->interfacesCount, sizeof(u2));	
+	class->interfaces = (u2*)calloc(class->interfacesCount, sizeof(u2));
 	for(i = 0; i < class->interfacesCount; i++)
 	{
 		class->interfaces[i] = readU2(fp);
@@ -468,7 +468,7 @@ void readAttribute(ClassFile *class, FILE *fp, AttributeInfo *attributes)
 
 	strcpy(attributeName, (char*)class->constantPool[attributes->attributeNameIndex].info.Utf8Info.bytes);
 	attributeName[class->constantPool[attributes->attributeNameIndex].info.Utf8Info.length] = '\0';
-	
+
 	if(strcmp(attributeName, "ConstantValue") == 0)
 	{
 		readConstantValueAttribute(fp, attributes);
@@ -543,7 +543,7 @@ void readMethods(ClassFile* class, FILE *fp)
 			readAttribute(class, fp, &(class->methods[i].attributes[j]));
 		}
 	}
-	
+
 }
 
 /**
@@ -574,22 +574,22 @@ ClassFile* readClass(char *classpath)
 
 	class->minorVersion = readU2(fp);
 	class->majorVersion = readU2(fp);
-	if ((class->minorVersion != 0) || (class->majorVersion > 46))
+	/*if ((class->minorVersion != 0) || (class->majorVersion > 46))
 	{
-		printf("ERRO: versao do arquivo nao suportada\n");
+        printf("ERRO: versao do arquivo nao suportada\n");
 		exit(1);
-	}
+	}*/
 	class->constantPoolCount = readU2(fp);
 	readConstantPool(class, fp);
 	class->accessFlags = readU2(fp);
 	class->thisClass = readU2(fp);
 	filepath = malloc(sizeof(char)*strlen(classpath) + 1);
 	strcpy(filepath, classpath);
-	if(strcmp((char*)class->constantPool[class->constantPool[class->thisClass].info.ClassInfo.nameIndex].info.Utf8Info.bytes, getClassName(filepath)) != 0)
+	/*if(strcmp((char*)class->constantPool[class->constantPool[class->thisClass].info.ClassInfo.nameIndex].info.Utf8Info.bytes, getClassName(filepath)) != 0)
 	{
 		printf("ERRO: arquivo com nome diferente\n");
 		exit(1);
-	}
+	}*/
 	class->superClass = readU2(fp);
 	class->interfacesCount = readU2(fp);
 	readInterfaces(class, fp);
@@ -606,7 +606,7 @@ ClassFile* readClass(char *classpath)
 
 	fclose(fp);
 
-	return class;	
+	return class;
 }
 
 /**
@@ -693,7 +693,7 @@ void printConstantPool(ClassFile* class, FILE *fp)
 				fprintf(fp, "\tLength of byte array: %hu\n", class->constantPool[i].info.Utf8Info.length);
 				fprintf(fp, "\tLength of string: %hu\n", class->constantPool[i].info.Utf8Info.length);
 				fprintf(fp, "\tString: %s\n", class->constantPool[i].info.Utf8Info.bytes);
-				break;			
+				break;
 		}
 	}
 }
@@ -767,6 +767,7 @@ void printMethods(ClassFile* class, FILE *fp)
 	int j;
 	int k;
 	int l;
+	int auxOpcode;
 
 	fprintf(fp, "\n\n=== METHODS ===\n\n");
 	for(i = 0; i < class->methodsCount; i++)
@@ -815,8 +816,68 @@ void printMethods(ClassFile* class, FILE *fp)
 				fprintf(fp, "\t\t\tBytecode:\n");
 				for(k = 0; k < class->methods[i].attributes[j].AttributeType.CodeAttribute.codeLength; k++, class->methods[i].attributes[j].AttributeType.CodeAttribute.code++)
 				{
-					printf("%x\n", *class->methods[i].attributes[j].AttributeType.CodeAttribute.code);
 					fprintf(fp, "\t\t\t\t%d %s\n", k, instructionOpcode[*class->methods[i].attributes[j].AttributeType.CodeAttribute.code]);
+					auxOpcode = *class->methods[i].attributes[j].AttributeType.CodeAttribute.code;
+					if((auxOpcode == 0xbc) ||
+						(auxOpcode == 0x10) ||
+						(auxOpcode == 0x12) ||
+						(auxOpcode == 0x15) ||
+						(auxOpcode == 0x16) ||
+						(auxOpcode == 0x17) ||
+						(auxOpcode == 0x18) ||
+						(auxOpcode == 0x19) ||
+						(auxOpcode == 0x36) ||
+						(auxOpcode == 0x37) ||
+						(auxOpcode == 0x38) ||
+						(auxOpcode == 0x39) ||
+						(auxOpcode == 0x3a) ||
+						(auxOpcode == 0xa9))
+					{
+						k++;
+						class->methods[i].attributes[j].AttributeType.CodeAttribute.code++;
+					}
+					else if(((auxOpcode >= 0x99) && (auxOpcode <= 0xa8)) ||
+						(auxOpcode == 0xc6) ||
+						(auxOpcode == 0xc7) ||
+						(auxOpcode == 0x11) ||
+						(auxOpcode == 0x84) ||
+						(auxOpcode == 0xb2) ||
+						(auxOpcode == 0xb4) ||
+						(auxOpcode == 0x13) ||
+						(auxOpcode == 0x14) ||
+						(auxOpcode == 0xb3) ||
+						(auxOpcode == 0xb5) ||
+						(auxOpcode == 0xb6) ||
+						(auxOpcode == 0xb7) ||
+						(auxOpcode == 0xb8) ||
+						(auxOpcode == 0xbb) ||
+						(auxOpcode == 0xbd) ||
+						(auxOpcode == 0xc0) ||
+						(auxOpcode == 0xc1))
+					{
+						k = k + 2;
+						class->methods[i].attributes[j].AttributeType.CodeAttribute.code++;
+						class->methods[i].attributes[j].AttributeType.CodeAttribute.code++;
+					}
+					else if((auxOpcode == 0xc4) || (auxOpcode == 0xc5))
+					{
+						k = k + 3;
+						class->methods[i].attributes[j].AttributeType.CodeAttribute.code++;
+						class->methods[i].attributes[j].AttributeType.CodeAttribute.code++;
+						class->methods[i].attributes[j].AttributeType.CodeAttribute.code++;
+					}
+					else if((auxOpcode == 0xab) ||
+						(auxOpcode == 0xaa) ||
+						(auxOpcode == 0xc8) ||
+						(auxOpcode == 0xc9) ||
+						(auxOpcode == 0xba) ||
+						(auxOpcode == 0xb9))
+					{
+						k = k + 4;
+						class->methods[i].attributes[j].AttributeType.CodeAttribute.code++;
+						class->methods[i].attributes[j].AttributeType.CodeAttribute.code++;
+						class->methods[i].attributes[j].AttributeType.CodeAttribute.code++;
+					}
 				}
 				fprintf(fp, "\t\t\tMisc:\n");
 				fprintf(fp, "\t\t\t\tMaximum stack deph: %d\n", class->methods[i].attributes[j].AttributeType.CodeAttribute.maxStack);

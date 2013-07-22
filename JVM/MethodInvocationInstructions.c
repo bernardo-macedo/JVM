@@ -2,6 +2,7 @@
 
 /*0xB6*/
 int invokevirtual(Interpretador* interpretador) {
+    return 0;
 }
 
 /*0xB7*/
@@ -70,5 +71,6 @@ int invokestatic(Interpretador* interpretador) {
 
 /*0xB9*/
 int invokeinterface(Interpretador* interpretador) {
+    return 0;
 }
 

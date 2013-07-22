@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "ClassStructure.h"
 #include "ClassLoader.h"
 #include "Controller.h"
@@ -37,5 +38,7 @@ void insertStaticFieldValue(ClassList*, char*, char*, Operand);
 void fieldsInit(Interpretador*, ClassFile, Field*);
 
 Array* createMultiArray(int, int*);
+
+//getStaticFieldName
 
 #endif

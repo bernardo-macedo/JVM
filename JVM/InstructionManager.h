@@ -2,9 +2,18 @@
 #define INSTRUCTION_MANAGER_H
 
 #include "Controller.h"
+//#include "ArithmeticInstructions.h"
+//#include "ControlTransferInstructions.h"
+//#include "LoadAndStoreInstructions.h"
+//#include "ObjectInstructions.h"
+//#include "OperandStackInstructions.h"
+//#include "ReturnInstructions.h"
+//#include "TypeConversionInstructions.h"
+//#include "MethodInvocationInstructions.h"
+//#include "AuxiliarFunctions.h"
 
 /** Variavel global que indica se a instrução wide foi chamada */
-int isWide = 0;
+int isWide;
 
 /** Ponteiro para funções de execução de instruções */
 int (*InstructionArray[])(Interpretador*);

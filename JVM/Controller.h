@@ -5,6 +5,7 @@
 
 #include "ClassStructure.h"
 #include <stdio.h>
+#include <math.h>
 
 
 /** Seção de ambiente de execução.
@@ -48,7 +49,7 @@ typedef struct OperandStack {
 * e um ambiente de execução dos métodos.
 */
 typedef struct Frame {
-    int *localVarArray;    // array de variaveis locais de 32 bits por slot
+    int *localVarArray;    /* array de variaveis locais de 32 bits por slot */
     ExecEnvirSection *execEnvir;
     OperandStack *topOperand;
 } Frame;
