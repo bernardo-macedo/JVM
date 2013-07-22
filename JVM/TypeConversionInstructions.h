@@ -1,6 +1,8 @@
 #ifndef TYPECONVERSIONINSTRUCTIONS_H
 #define TYPECONVERSIONINSTRUCTIONS_H
 
+#include "Controller.h"
+
 /** Converte o primeiro valor da pilha de int para long */
 int i2l(Interpretador*); /*0x85*/
 

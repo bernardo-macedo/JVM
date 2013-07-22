@@ -61,6 +61,15 @@ ClassFile
 #define	CONSTANT_NameAndType			12
 #define	CONSTANT_Utf8					1
 
+#define T_BOOLEAN	4
+#define T_CHAR     	5
+#define T_FLOAT 	6
+#define T_DOUBLE 	7
+#define T_BYTE      8
+#define T_SHORT 	9
+#define T_INT       10
+#define T_LONG      11
+
 typedef unsigned char 	u1;
 typedef unsigned short 	u2;
 typedef unsigned int 	u4;
@@ -188,7 +197,7 @@ typedef struct attributeInfo
 	u4 attributeLength;
 	union
 	{
-		struct 
+		struct
 		{
 		    u2 constantValueIndex;
 		} ConstantValueAttribute;
@@ -205,7 +214,7 @@ typedef struct attributeInfo
 			struct attributeInfo *attributes;
 		} CodeAttribute;
 
-		struct 
+		struct
 		{
 		} DeprecatedAttribute;
 
@@ -240,7 +249,7 @@ typedef struct attributeInfo
 			u2 sourceFileIndex;
 		} SourceFileAttribute;
 
-		struct 
+		struct
 		{
 			u1 *info;
 		} UnknownAttribute;

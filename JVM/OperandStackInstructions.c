@@ -2,7 +2,7 @@
 
 /*0x57*/
 int pop(Interpretador* interpretador) {
-    if (interpretador->topStackFrame->frame->topOperand->operand->type32_64 == CAT1) {
+    if (interpretador->topStackFrame->frame->topOperand->operand.type32_64 == CAT1) {
         popOperand(&(interpretador->topStackFrame->frame->topOperand));
     } else {
         printf("Erro. Topo da pilha e' do Tipo 2\n");
@@ -13,8 +13,8 @@ int pop(Interpretador* interpretador) {
 
 /*0x58*/
 int pop2(Interpretador* interpretador) {
-    if (interpretador->topStackFrame->frame->topOperand->operand->type32_64 == CAT1 &&
-        interpretador->topStackFrame->frame->topOperand->nextOperand->operand->type32_64 == CAT1) {
+    if (interpretador->topStackFrame->frame->topOperand->operand.type32_64 == CAT1 &&
+        interpretador->topStackFrame->frame->topOperand->nextOperand->operand.type32_64 == CAT1) {
         popOperand(&(interpretador->topStackFrame->frame->topOperand));
         popOperand(&(interpretador->topStackFrame->frame->topOperand));
     } else {
@@ -25,11 +25,11 @@ int pop2(Interpretador* interpretador) {
 
 /*0x59*/
 int dup(Interpretador* interpretador) {
-    Operando operand;
-    if (interpretador->topStackFrame->frame->topOperand->operand->type32_64 == CAT1) {
+    Operand operand;
+    if (interpretador->topStackFrame->frame->topOperand->operand.type32_64 == CAT1) {
         operand = popOperand(&(interpretador->topStackFrame->frame->topOperand));
-        pushOperand(&(interpretador->topStackFrame->frame->topOperand), operando);
-        pushOperand(&(interpretador->topStackFrame->frame->topOperand), operando);
+        pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand);
+        pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand);
     } else {
         printf("Erro. Topo da pilha e' do Tipo 2\n");
         exit(1);
@@ -39,9 +39,9 @@ int dup(Interpretador* interpretador) {
 
 /*0x5A*/
 int dup_x1(Interpretador* interpretador) {
-    Operando operand1, operand2;
-    if (interpretador->topStackFrame->frame->topOperand->operand->type32_64 == CAT1 &&
-        interpretador->topStackFrame->frame->topOperand->nextOperand->operand->type32_64 == CAT1) {
+    Operand operand1, operand2;
+    if (interpretador->topStackFrame->frame->topOperand->operand.type32_64 == CAT1 &&
+        interpretador->topStackFrame->frame->topOperand->nextOperand->operand.type32_64 == CAT1) {
         operand1 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor1 */
         operand2 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor2 */
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand1);
@@ -56,22 +56,22 @@ int dup_x1(Interpretador* interpretador) {
 
 /*0x5B*/
 int dup_x2(Interpretador* interpretador) {
-    Operando operand1, operand2, operand3;
-    if (interpretador->topStackFrame->frame->topOperand->operand->type32_64 == CAT1) { /* Caso 1 */
-        if (interpretador->topStackFrame->frame->topOperand->nextOperand->operand->type32_64 == CAT2) { /* dois slots abaixo */
+    Operand operand1, operand2, operand3;
+    if (interpretador->topStackFrame->frame->topOperand->operand.type32_64 == CAT1) { /* Caso 1 */
+        if (interpretador->topStackFrame->frame->topOperand->nextOperand->operand.type32_64 == CAT2) { /* dois slots abaixo */
             operand1 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor1 */
             operand2 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor2 */
-            pushOperand(&(interpretador->topStackFrame->frame->topOperand), operando1);
-            pushOperand(&(interpretador->topStackFrame->frame->topOperand), operando2);
-            pushOperand(&(interpretador->topStackFrame->frame->topOperand), operando1);
-        } else if (interpretador->topStackFrame->frame->topOperand->nextOperand->nextOperand->operand->type32_64 == CAT1) { /* Caso 2 */
+            pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand1);
+            pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand2);
+            pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand1);
+        } else if (interpretador->topStackFrame->frame->topOperand->nextOperand->nextOperand->operand.type32_64 == CAT1) { /* Caso 2 */
             operand1 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor1 */
             operand2 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor2 */
             operand3 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor3 */
-            pushOperand(&(interpretador->topStackFrame->frame->topOperand), operando1);
-            pushOperand(&(interpretador->topStackFrame->frame->topOperand), operando3);
-            pushOperand(&(interpretador->topStackFrame->frame->topOperand), operando2);
-            pushOperand(&(interpretador->topStackFrame->frame->topOperand), operando1);
+            pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand1);
+            pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand3);
+            pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand2);
+            pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand1);
         } else {
             printf("Erro. O terceiro valor e' do Tipo 2\n");
             exit(1);
@@ -85,16 +85,16 @@ int dup_x2(Interpretador* interpretador) {
 
 /*0x5C*/
 int dup2(Interpretador* interpretador) {
-    Operando operand1, operand2;
-    if (interpretador->topStackFrame->frame->topOperand->operand->type32_64 == CAT1 &&
-        interpretador->topStackFrame->frame->topOperand->nextOperand->operand->type32_64 == CAT1) { /* Caso 1 */
+    Operand operand1, operand2;
+    if (interpretador->topStackFrame->frame->topOperand->operand.type32_64 == CAT1 &&
+        interpretador->topStackFrame->frame->topOperand->nextOperand->operand.type32_64 == CAT1) { /* Caso 1 */
         operand1 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o primeiro valor a ser duplicado */
         operand2 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o segundo valor a ser duplicado */
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand2);
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand1);
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand2);
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand1);
-    } else if (interpretador->topStackFrame->frame->topOperand->operand->type32_64 == CAT2) { /* Caso 2 */
+    } else if (interpretador->topStackFrame->frame->topOperand->operand.type32_64 == CAT2) { /* Caso 2 */
         operand1 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o primeiro valor a ser duplicado */
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand1);
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand1);
@@ -104,9 +104,9 @@ int dup2(Interpretador* interpretador) {
 
 /*0x5D*/
 int dup2_x1(Interpretador* interpretador) {
-    Operando operand1, operand2, operand3;
-    if (interpretador->topStackFrame->frame->topOperand->operand->type32_64 == CAT1 &&
-        interpretador->topStackFrame->frame->topOperand->nextOperand->operand->type32_64 == CAT1) { /* Caso 2 */
+    Operand operand1, operand2, operand3;
+    if (interpretador->topStackFrame->frame->topOperand->operand.type32_64 == CAT1 &&
+        interpretador->topStackFrame->frame->topOperand->nextOperand->operand.type32_64 == CAT1) { /* Caso 2 */
         operand1 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor1 */
         operand2 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor2 */
         operand3 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor3 */
@@ -115,7 +115,7 @@ int dup2_x1(Interpretador* interpretador) {
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand3);
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand2);
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand1);
-    } else if (interpretador->topStackFrame->frame->topOperand->operand->type32_64 == CAT2) { /* Caso 1 */
+    } else if (interpretador->topStackFrame->frame->topOperand->operand.type32_64 == CAT2) { /* Caso 1 */
         operand1 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor1 */
         operand2 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor2 */
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand1);
@@ -127,11 +127,11 @@ int dup2_x1(Interpretador* interpretador) {
 
 /*0x5E*/
 int dup2_x2(Interpretador* interpretador) {
-    Operando operand1, operand2, operand3, operand4;
-    if (interpretador->topStackFrame->frame->topOperand->operand->type32_64 == CAT1 &&
-        interpretador->topStackFrame->frame->topOperand->nextOperand->operand->type32_64 == CAT1 &&
-        interpretador->topStackFrame->frame->topOperand->nextOperand->nextOperand->operand->type32_64 == CAT1 &&
-        interpretador->topStackFrame->frame->topOperand->nextOperand->nextOperand->nextOperand->operand->type32_64 == CAT1 ) { /* Caso 1 */
+    Operand operand1, operand2, operand3, operand4;
+    if (interpretador->topStackFrame->frame->topOperand->operand.type32_64 == CAT1 &&
+        interpretador->topStackFrame->frame->topOperand->nextOperand->operand.type32_64 == CAT1 &&
+        interpretador->topStackFrame->frame->topOperand->nextOperand->nextOperand->operand.type32_64 == CAT1 &&
+        interpretador->topStackFrame->frame->topOperand->nextOperand->nextOperand->nextOperand->operand.type32_64 == CAT1 ) { /* Caso 1 */
         operand1 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor1 */
         operand2 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor2 */
         operand3 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor3 */
@@ -142,7 +142,7 @@ int dup2_x2(Interpretador* interpretador) {
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand3);
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand2);
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand1);
-    } else if (interpretador->topStackFrame->frame->topOperand->operand->type32_64 == CAT2) { /* Caso 2 */
+    } else if (interpretador->topStackFrame->frame->topOperand->operand.type32_64 == CAT2) { /* Caso 2 */
         operand1 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor1 */
         operand2 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor2 */
         operand3 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor3 */
@@ -150,9 +150,9 @@ int dup2_x2(Interpretador* interpretador) {
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand3);
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand2);
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand1);
-    } else if (interpretador->topStackFrame->frame->topOperand->operand->type32_64 == CAT1 &&
-        interpretador->topStackFrame->frame->topOperand->nextOperand->operand->type32_64 == CAT1 &&
-        interpretador->topStackFrame->frame->topOperand->nextOperand->nextOperand->operand->type32_64 == CAT2) { /* Caso 3 */
+    } else if (interpretador->topStackFrame->frame->topOperand->operand.type32_64 == CAT1 &&
+        interpretador->topStackFrame->frame->topOperand->nextOperand->operand.type32_64 == CAT1 &&
+        interpretador->topStackFrame->frame->topOperand->nextOperand->nextOperand->operand.type32_64 == CAT2) { /* Caso 3 */
         operand1 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor1 */
         operand2 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor2 */
         operand3 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor3 */
@@ -161,8 +161,8 @@ int dup2_x2(Interpretador* interpretador) {
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand3);
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand2);
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand1);
-    } else if (interpretador->topStackFrame->frame->topOperand->operand->type32_64 == CAT2 &&
-        interpretador->topStackFrame->frame->topOperand->nextOperand->operand->type32_64 == CAT2) {
+    } else if (interpretador->topStackFrame->frame->topOperand->operand.type32_64 == CAT2 &&
+        interpretador->topStackFrame->frame->topOperand->nextOperand->operand.type32_64 == CAT2) {
         operand1 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor1 */
         operand2 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor2 */
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand1);
@@ -174,9 +174,9 @@ int dup2_x2(Interpretador* interpretador) {
 
 /*0x5F*/
 int _swap(Interpretador* interpretador) {
-    Operando operand1, operand2;
-    if (interpretador->topStackFrame->frame->topOperand->operand->type32_64 == CAT1 &&
-        interpretador->topStackFrame->frame->topOperand->nextOperand->operand->type32_64 == CAT1) {
+    Operand operand1, operand2;
+    if (interpretador->topStackFrame->frame->topOperand->operand.type32_64 == CAT1 &&
+        interpretador->topStackFrame->frame->topOperand->nextOperand->operand.type32_64 == CAT1) {
         operand1 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor1 */
         operand2 = popOperand(&(interpretador->topStackFrame->frame->topOperand)); /* pega o valor2 */
         pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand2);
@@ -187,5 +187,3 @@ int _swap(Interpretador* interpretador) {
     }
 	return 0;
 }
-
-#endif

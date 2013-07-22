@@ -1,6 +1,8 @@
 #ifndef OPERANDSTACKINSTRUCTIONS_H
 #define OPERANDSTACKINSTRUCTIONS_H
 
+#include "Controller.h"
+
 /** Retira o primeiro operando da pilha de operandos.
 */
 int pop(Interpretador*); /*0x57*/

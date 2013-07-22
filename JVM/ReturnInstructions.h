@@ -1,6 +1,8 @@
 #ifndef RETURNINSTRUCTIONS_H
 #define RETURNINSTRUCTIONS_H
 
+#include "Controller.h"
+
 /** Retira o primeiro valor (int) da pilha de operandos do frame atual
 * e o insere na pilha de operandos do frame que chamou o frame atual.
 */

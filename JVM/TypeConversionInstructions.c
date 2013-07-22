@@ -113,8 +113,8 @@ int i2b(Interpretador* interpretador) {
     Operand operand1, operand_result;
     u1 aux;
     operand1 = popOperand(&(interpretador->topStackFrame->frame->topOperand));
-    u1 = operand1.operandType.intType;
-    operand_result.operandType.intType = (int) u1;
+    aux = operand1.operandType.intType;
+    operand_result.operandType.intType = (int) aux;
     pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand_result);
 	return 0;
 }
@@ -136,5 +136,3 @@ int i2s(Interpretador* interpretador) {
     pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand_result);
 	return 0;
 }
-
-#endif

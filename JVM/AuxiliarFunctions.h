@@ -1,6 +1,11 @@
 #ifndef AUXILIARFUNCTIONS_H
 #define AUXILIARFUNCTIONS_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "ClassStructure.h"
+#include "ClassLoader.h"
 #include "Controller.h"
 
 float convertU4ToFloat(u4 u4input);
@@ -20,4 +25,17 @@ ClassFile* getClassFileByName(ClassList* init, char* className);
 /** Função que busca um método a partir de seu nome e descritor. Retorna NULL se não existir
 */
 MethodInfo* getMethod(ClassFile, char* methodName, char* methodDescriptor);
+
+char* getClassName(char *classpath);
+
+ClassFile* isLoaded(Interpretador*, char*);
+
+void insertStaticFieldValue(ClassList*, char*, char*, Operand);
+
+/*// Função que preenche o array de fields do objeto com os fields de todas
+// as classes ligadas a ele (classe + super classes) e inicializa o valor com */
+void fieldsInit(Interpretador*, ClassFile, Field*);
+
+Array* createMultiArray(int, int*);
+
 #endif

@@ -1,5 +1,4 @@
 #include <math.h>
-#include <stdlib.h>
 #include "AuxiliarFunctions.h"
 
 float convertU4ToFloat(u4 u4input)
@@ -32,6 +31,11 @@ float convertU4ToFloat(u4 u4input)
 
 	return convertedU4;
 }
+
+u1* getUTF8(CpInfo *cp, u2 index) {
+    return cp[index].info.Utf8Info.bytes;
+}
+
 
 int methodArgsCount(char* descriptor) {
     int argNumber = 0, i = 0;
@@ -79,6 +83,141 @@ MethodInfo* getMethod(ClassFile cFile, char* methodName, char* methodDescriptor)
 	return NULL ;
 }
 
-u1* getUTF8(CpInfo *cp, u2 indice) {
-	return cp[indice].info.Utf8Info.bytes;
+char* getClassName(char *classpath)
+{
+	char* classname;
+	char* aux;
+	char* aux2;
+
+	aux = strtok(classpath, "/\\\"");
+	while(aux != NULL)
+	{
+		aux2 = aux;
+		aux = strtok(NULL, "/\\\"");
+	}
+	if(strstr(aux2, ".class") != NULL)
+	{
+		classname = malloc(sizeof(char)*strlen(aux2));
+		strncpy(classname, aux2, strlen(aux2)-6);
+		classname[strlen(aux2)-6] = '\0';
+
+		return classname;
+	}
+	return aux2;
+}
+
+/* Nem precisa receber Interpretador */
+ClassFile* isLoaded(Interpretador* interpretador, char* className) {
+	ClassFile* classFile;
+	/* Verifica se a classe buscada ja foi carregada */
+	classFile = getClassFileByName(interpretador->initClass, className);
+	/* Nao foi carregada ainda */
+	if (classFile == NULL ) {
+		classFile = malloc(sizeof(ClassFile));
+		/* Carrega a classe na memoria (se nao estiver ainda) e insere na lista */
+		classFile = loadClass(interpretador, className);
+	}
+	return classFile;
+}
+
+void insertStaticFieldValue(ClassList* init, char* className, char* fieldName, Operand operand) {
+	u2 classInfoIndex;
+    ClassList *p;
+	int i;
+
+	p = init;
+	while (p != NULL) {
+		classInfoIndex = p->classFile->thisClass;
+		if (strcmp(className, getUTF8(p->classFile->constantPool, p->classFile->constantPool[classInfoIndex].info.ClassInfo.nameIndex)) == 0) {
+			for (i = 0; i < p->staticFieldsCount; i++) {
+				if (strcmp(fieldName, p->staticFields[i].name) == 0) {
+					p->staticFields[i].fieldType.longType = operand.operandType.longType;
+					return;
+				}
+			}
+			return;
+		}
+		p = p->nextClass;
+	}
+}
+
+void fieldsInit(Interpretador *p, ClassFile classFile, Field* fields) {
+
+	int i;
+	int j = 0; // Contador dos fields do objeto
+	ClassFile* classFile_aux;
+	u2 superClassNameIndex, fieldDescriptorIndex, fieldNameIndex;
+	char* descriptor, fieldName;
+	char nomeSuperClasse[100];
+
+	classFile_aux = &classFile;
+
+	/* Inicializa os fields nao estaticos */
+	for (i = 0; i < classFile_aux->fieldsCount; i++) {
+		fieldDescriptorIndex = classFile_aux->fields[i].descriptorIndex;
+		descriptor = getUTF8(classFile_aux->constantPool, fieldDescriptorIndex);
+		fieldNameIndex = classFile_aux->fields[i].nameIndex;
+		fieldName = getUTF8(classFile_aux->constantPool, fieldNameIndex);
+
+		if ((classFile_aux->fields[i].accessFlags & ACC_STATIC) == 0) {
+			fields[j].descriptor = descriptor;
+			fields[j].name = fieldName;
+			fields[j].fieldType.longType = 0;
+			j++;
+		}
+	}
+
+    /* Inicializa os fields das super classes */
+	while (classFile_aux->superClass != 0) {
+		superClassNameIndex = classFile_aux->constantPool[classFile_aux->superClass].info.ClassInfo.nameIndex;
+		strcpy(nomeSuperClasse, getUTF8(classFile_aux->constantPool, superClassNameIndex));
+		classFile_aux = loadClass(p, nomeSuperClasse);
+
+		if (classFile_aux != NULL ) {
+			for (i = 0; i < classFile_aux->fieldsCount; i++) {
+				fieldDescriptorIndex = classFile_aux->fields[i].descriptorIndex;
+				descriptor = getUTF8(classFile_aux->constantPool, fieldDescriptorIndex);
+				fieldNameIndex = classFile_aux->fields[i].nameIndex;
+				fieldName = getUTF8(classFile_aux->constantPool, fieldNameIndex);
+
+				if (((classFile_aux->fields[i].accessFlags & ACC_STATIC) == 0)) {
+					fields[j].descriptor = descriptor;
+					fields[j].name = fieldName;
+					fields[j].fieldType.longType = 0;
+					j++;
+				}
+			}
+		} else {
+			printf("Super classe nao encontrada\n");
+			exit(1);
+		}
+	}
+}
+
+Array* createMultiArray(int dimensions, int* intCounts) {
+	Array *aux, *aux2;
+	int i;
+	int *intCounts_aux;
+	if (dimensions == 1) {
+		aux = malloc(sizeof(Array));
+		aux->arraySize = intCounts[0];
+		aux->type = T_INT;
+		aux->array = calloc(intCounts[0], sizeof(Operand));
+	} else {
+		aux = malloc(sizeof(Array));
+		aux->arraySize = intCounts[0];
+		aux->type = T_INT;
+		aux->array = calloc(intCounts[0], sizeof(Operand));
+		//---------------------------------------------------
+		intCounts_aux = calloc(dimensions - 1, sizeof(int));
+		for (i = 1; i < dimensions; ++i) {
+			intCounts_aux[i - 1] = intCounts[i];
+		}
+		//---------------------------------------------------
+		for (i = 0; i < intCounts[0]; ++i) {
+			aux2 = alocaMultiArray(dimensions - 1, intCounts_aux);
+			aux->array[i].operandType.referenceType = aux2;
+		}
+	}
+	return aux;
 }

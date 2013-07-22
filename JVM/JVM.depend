@@ -93,3 +93,117 @@
 1374477575 source:c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\methodinvocationinstructions.c
 	"MethodInvocationInstructions.h"
 
+1374478644 source:c:\users\renatacristina\documents\github\jvm\jvm\arithmeticinstructions.c
+	"ArithmeticInstructions.h"
+
+1374478644 c:\users\renatacristina\documents\github\jvm\jvm\arithmeticinstructions.h
+	"InstructionManager.h"
+	"Controller.h"
+
+1374478644 c:\users\renatacristina\documents\github\jvm\jvm\instructionmanager.h
+	"Controller.h"
+
+1374481483 c:\users\renatacristina\documents\github\jvm\jvm\controller.h
+	"ClassStructure.h"
+	<stdio.h>
+
+1374480372 c:\users\renatacristina\documents\github\jvm\jvm\classstructure.h
+
+1374475011 source:c:\users\renatacristina\documents\github\jvm\jvm\classloader.c
+	"ClassLoader.h"
+
+1374441596 c:\users\renatacristina\documents\github\jvm\jvm\classloader.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ClassStructure.h"
+	"AuxiliarFunctions.h"
+
+1374481285 c:\users\renatacristina\documents\github\jvm\jvm\auxiliarfunctions.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ClassStructure.h"
+	"ClassLoader.h"
+	"Controller.h"
+
+1374478644 source:c:\users\renatacristina\documents\github\jvm\jvm\controller.c
+	<stdlib.h>
+	"Controller.h"
+	"AuxiliarFunctions.h"
+	"InstructionManager.h"
+
+1374478644 source:c:\users\renatacristina\documents\github\jvm\jvm\controltransferinstructions.c
+	"ControlTransferInstructions.h"
+	"InstructionManager.h"
+	<stdlib.h>
+
+1374478644 c:\users\renatacristina\documents\github\jvm\jvm\controltransferinstructions.h
+	"Controller.h"
+
+1374481303 source:c:\users\renatacristina\documents\github\jvm\jvm\instructionmanager.c
+	"InstructionManager.h"
+	"ArithmeticInstructions.h"
+	"ControlTransferInstructions.h"
+	"LoadAndStoreInstructions.h"
+	"MethodInvocationInstructions.h"
+	"ObjectInstructions.h"
+	"OperandStackInstructions.h"
+	"ReturnInstructions.h"
+	"TypeConversionInstructions.h"
+
+1374478644 c:\users\renatacristina\documents\github\jvm\jvm\loadandstoreinstructions.h
+	"Controller.h"
+	"ClassStructure.h"
+	"InstructionManager.h"
+
+1374478644 c:\users\renatacristina\documents\github\jvm\jvm\methodinvocationinstructions.h
+	"ClassStructure.h"
+	"AuxiliarFunctions.h"
+	"InstructionManager.h"
+	"Controller.h"
+
+1374481322 c:\users\renatacristina\documents\github\jvm\jvm\objectinstructions.h
+	"Controller.h"
+
+1374481803 c:\users\renatacristina\documents\github\jvm\jvm\operandstackinstructions.h
+	"Controller.h"
+
+1374482033 c:\users\renatacristina\documents\github\jvm\jvm\returninstructions.h
+	"Controller.h"
+
+1374482095 c:\users\renatacristina\documents\github\jvm\jvm\typeconversioninstructions.h
+	"Controller.h"
+
+1374478644 source:c:\users\renatacristina\documents\github\jvm\jvm\jvm.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	"ClassLoader.h"
+	"ClassStructure.h"
+	"InstructionManager.h"
+	"Controller.h"
+
+1374478644 source:c:\users\renatacristina\documents\github\jvm\jvm\loadandstoreinstructions.c
+	"LoadAndStoreInstructions.h"
+	<stdlib.h>
+
+1374478644 source:c:\users\renatacristina\documents\github\jvm\jvm\methodinvocationinstructions.c
+	"MethodInvocationInstructions.h"
+
+1374481297 source:c:\users\renatacristina\documents\github\jvm\jvm\auxiliarfunctions.c
+	<math.h>
+	"AuxiliarFunctions.h"
+
+1374481784 source:c:\users\renatacristina\documents\github\jvm\jvm\objectinstructions.c
+	"ObjectInstructions.h"
+
+1374482016 source:c:\users\renatacristina\documents\github\jvm\jvm\operandstackinstructions.c
+	"OperandStackInstructions.h"
+
+1374482085 source:c:\users\renatacristina\documents\github\jvm\jvm\returninstructions.c
+	"ReturnInstructions.h"
+
+1374482123 source:c:\users\renatacristina\documents\github\jvm\jvm\typeconversioninstructions.c
+	"TypeConversionInstructions.h"
+

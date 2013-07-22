@@ -5,7 +5,7 @@ int ireturn(Interpretador* interpretador) {
     Operand operand;
     operand = popOperand(&(interpretador->topStackFrame->frame->topOperand));
     popFrame(&(interpretador->topStackFrame));
-    pushOperand(&(interpretador->topStackFrame->frame->topOperand));
+    pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand);
 	return 1;
 }
 
@@ -14,7 +14,7 @@ int lreturn(Interpretador* interpretador) {
     Operand operand;
     operand = popOperand(&(interpretador->topStackFrame->frame->topOperand));
     popFrame(&(interpretador->topStackFrame));
-    pushOperand(&(interpretador->topStackFrame->frame->topOperand));
+    pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand);
 	return 1;
 }
 
@@ -23,7 +23,7 @@ int freturn(Interpretador* interpretador) {
     Operand operand;
     operand = popOperand(&(interpretador->topStackFrame->frame->topOperand));
     popFrame(&(interpretador->topStackFrame));
-    pushOperand(&(interpretador->topStackFrame->frame->topOperand));
+    pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand);
 	return 1;
 }
 
@@ -32,7 +32,7 @@ int dreturn(Interpretador* interpretador) {
     Operand operand;
     operand = popOperand(&(interpretador->topStackFrame->frame->topOperand));
     popFrame(&(interpretador->topStackFrame));
-    pushOperand(&(interpretador->topStackFrame->frame->topOperand));
+    pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand);
 	return 1;
 }
 
@@ -41,15 +41,13 @@ int areturn(Interpretador* interpretador) {
     Operand operand;
     operand = popOperand(&(interpretador->topStackFrame->frame->topOperand));
     popFrame(&(interpretador->topStackFrame));
-    pushOperand(&(interpretador->topStackFrame->frame->topOperand));
+    pushOperand(&(interpretador->topStackFrame->frame->topOperand), operand);
 	return 1;
 }
 
 /*0xB1*/
-int return(Interpretador* interpretador) {
+int return_(Interpretador* interpretador) {
     popFrame(&(interpretador->topStackFrame));
     return 1;
 }
-
-#endif
 

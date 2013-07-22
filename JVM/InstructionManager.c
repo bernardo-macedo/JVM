@@ -196,7 +196,7 @@ int (*InstructionArray[])(Interpretador *interpretador) = {
     invokestatic,// 0xB8
     nop,//nop,// 0xB9
     nop,//nop,// 0xBA
-    new,// 0xBB
+    new_,// 0xBB
     newarray,// 0xBC
     anewarray,// 0xBD
     arraylength,// 0xBE

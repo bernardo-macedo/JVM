@@ -4,6 +4,8 @@
 #define CAT2 2
 
 #include "ClassStructure.h"
+#include <stdio.h>
+
 
 /** Seção de ambiente de execução.
 * Contém um ponteiro para a classe à qual o método pertence,
@@ -27,6 +29,9 @@ typedef struct Operand {
         float floatType;
         double doubleType;
         void* referenceType;
+        char byteType;
+        u1 charType;
+        short shortType;
     } operandType;
 } Operand;
 
@@ -107,6 +112,13 @@ typedef struct Interpretador {
     StackFrame *topStackFrame;
     ClassList *initClass;
 } Interpretador;
+
+/** Estrutura que modela o array que será usado nas instruções de objetos
+*/
+typedef struct Array {
+	int arraySize, type;
+	Operand *array;
+} Array;
 
 /* ******************** Funções ******************** */
 
