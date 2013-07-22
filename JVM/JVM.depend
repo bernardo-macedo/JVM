@@ -1,0 +1,95 @@
+# depslib dependency file v1.0
+1374474368 source:c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\arithmeticinstructions.c
+	"ArithmeticInstructions.h"
+
+1374473653 c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\arithmeticinstructions.h
+	"InstructionManager.h"
+	"Controller.h"
+
+1374473079 c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\instructionmanager.h
+	"Controller.h"
+
+1374474568 c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\controller.h
+	"ClassStructure.h"
+
+1374094834 c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\classstructure.h
+
+1374475657 source:c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\auxiliarfunctions.c
+	<math.h>
+	<stdlib.h>
+	"AuxiliarFunctions.h"
+
+1374475664 c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\auxiliarfunctions.h
+	"Controller.h"
+
+1374094834 source:c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\classloader.c
+	"ClassLoader.h"
+
+1374094834 c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\classloader.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ClassStructure.h"
+	"AuxiliarFunctions.h"
+
+1374476823 source:c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\controller.c
+	<stdlib.h>
+	"Controller.h"
+	"AuxiliarFunctions.h"
+	"InstructionManager.h"
+
+1374476992 source:c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\controltransferinstructions.c
+	"ControlTransferInstructions.h"
+	"InstructionManager.h"
+	<stdlib.h>
+
+1374476874 c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\controltransferinstructions.h
+	"Controller.h"
+
+1374477212 source:c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\instructionmanager.c
+	"InstructionManager.h"
+	"ArithmeticInstructions.h"
+	"ControlTransferInstructions.h"
+	"LoadAndStoreInstructions.h"
+	"MethodInvocationInstructions.h"
+	"ObjectInstructions.h"
+	"OperandStackInstructions.h"
+	"ReturnInstructions.h"
+	"TypeConversionInstructions.h"
+
+1374477159 c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\loadandstoreinstructions.h
+	"Controller.h"
+	"ClassStructure.h"
+	"InstructionManager.h"
+
+1374477177 c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\methodinvocationinstructions.h
+	"ClassStructure.h"
+	"AuxiliarFunctions.h"
+	"InstructionManager.h"
+	"Controller.h"
+
+1374477593 c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\objectinstructions.h
+	"Controller.h"
+
+1374290941 c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\operandstackinstructions.h
+
+1374477195 c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\returninstructions.h
+
+1374290942 c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\typeconversioninstructions.h
+
+1374472232 source:c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\jvm.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	"ClassLoader.h"
+	"ClassStructure.h"
+	"InstructionManager.h"
+	"Controller.h"
+
+1374477385 source:c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\loadandstoreinstructions.c
+	"LoadAndStoreInstructions.h"
+	<stdlib.h>
+
+1374477575 source:c:\users\bernardo\documents\unb\software básico\jvm-sb-12013\jvm\jvm\methodinvocationinstructions.c
+	"MethodInvocationInstructions.h"
+
