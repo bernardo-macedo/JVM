@@ -6,6 +6,7 @@
 #include "InstructionManager.h"
 #include "Controller.h"
 
+/*Teste*/
 int invokevirtual(Interpretador*); /*0xB6*/
 int invokespecial(Interpretador*); /*0xB7*/
 int invokestatic(Interpretador*); /*0xB8*/

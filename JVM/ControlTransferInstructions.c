@@ -263,7 +263,7 @@ int if_acmpne(Interpretador* interpretador) {
 }
 
 /*0xA7*/
-int _goto(Interpretador* interpretador) {
+int goto_(Interpretador* interpretador) {
     u2 offset;
     u1 branchbyte1, branchbyte2;
     branchbyte1 = *(interpretador->topStackFrame->frame->execEnvir->pc);

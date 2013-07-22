@@ -91,7 +91,7 @@ void frameInit(ClassList *init, ClassFile classfile, StackFrame *stackFrame, cha
 	superClassIndex = classfile_aux->superClass;
 
 	/* Procura o metodo pelo nome e se não encontrar, procura na super classe */
-	while (classfile_aux != NULL && (method = getMethodByName(*classfile_aux, methodName, descriptor)) == NULL && superClassIndex != 0) {
+	while (classfile_aux != NULL && (method = getMethod(*classfile_aux, methodName, descriptor)) == NULL && superClassIndex != 0) {
 
         superClassName = getUTF8(classfile_aux->constantPool, classfile_aux->constantPool[superClassIndex].info.ClassInfo.nameIndex);
 
@@ -183,10 +183,12 @@ ClassFile* loadClass(Interpretador* interpretador, char* className) {
         appendClassList(&(interpretador->initClass), *cFile);
         // Inicia <clinit>
         if (getMethod(*cFile, "<clinit>", "()V") != NULL) {
+            printf("\n\nVAI INICIAR CLINIT\n");
             methodInit(className, "<clinit>", "()V", interpretador, 0, 0);
             methodExec(interpretador);
         }
     }
+    return cFile;
 }
 
 /*
@@ -206,11 +208,13 @@ void methodInit(char* className, char* methodName, char* methodDescriptor, Inter
 
     pushFrame(&(interpretador->topStackFrame));
     frameInit(interpretador->initClass, *cFile, interpretador->topStackFrame, methodName, methodDescriptor);
-    for (i = countSlots(interpretador->topStackFrame->nextFrame->frame->topOperand, paramsNumber) - 1; i >= 0; i--) {
-        if (interpretador->topStackFrame->nextFrame->frame->topOperand->operand.type32_64 == CAT2)
-            i--;
-        interpretador->topStackFrame->frame->localVarArray[i] = &(interpretador->topStackFrame->nextFrame->frame->topOperand);
-    }
+    //if (interpretador->topStackFrame->nextFrame != NULL) {
+        for (i = countSlots(interpretador->topStackFrame->nextFrame->frame->topOperand, paramsNumber) - 1; i >= 0; i--) {
+            if (interpretador->topStackFrame->nextFrame->frame->topOperand->operand.type32_64 == CAT2)
+                i--;
+            interpretador->topStackFrame->frame->localVarArray[i] = &(interpretador->topStackFrame->nextFrame->frame->topOperand);
+        }
+    //}
 }
 void methodExec(Interpretador* interpretador) {
     int ret_ = 0;

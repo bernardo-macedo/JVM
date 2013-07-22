@@ -1,4 +1,3 @@
-#include <math.h>
 #include "AuxiliarFunctions.h"
 
 float convertU4ToFloat(u4 u4input)
@@ -215,9 +214,38 @@ Array* createMultiArray(int dimensions, int* intCounts) {
 		}
 		//---------------------------------------------------
 		for (i = 0; i < intCounts[0]; ++i) {
-			aux2 = alocaMultiArray(dimensions - 1, intCounts_aux);
+			aux2 = createMultiArray(dimensions - 1, intCounts_aux);
 			aux->array[i].operandType.referenceType = aux2;
 		}
 	}
 	return aux;
+}
+
+// Função que retorna o field estático dados o nome da classe e o nome do field
+Field* getStaticFieldName(ClassList* init, char* className, char* fieldName) {
+	u2 classInfoIndex;
+	ClassList *p;
+	int i;
+
+	p = init;
+	while (p != NULL ) {
+		classInfoIndex = p->classFile->thisClass;
+
+		if (strcmp(className, getUTF8(p->classFile->constantPool, p->classFile->constantPool[classInfoIndex].info.ClassInfo.nameIndex)) == 0) {
+			for (i = 0; i < p->staticFieldsCount; i++) {
+				if (strcmp(fieldName, p->staticFields[i].name) == 0) {
+					return (&p->staticFields[i]);
+				}
+			}
+
+			// Não há como ter duas classes com o mesmo nome, então
+			// se o nome bateu, mas em nenhum dos fields foi encontrado
+			// o esperado, então welp, retorne NULL.
+			return NULL ;
+		}
+
+		p = p->nextClass;
+	}
+
+	return NULL ;
 }

@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 #include "ClassLoader.h"
 #include "ClassStructure.h"
 #include "InstructionManager.h"
@@ -18,7 +19,7 @@
 
 int main(int argc, char *argv[])
 {
-	//char *classpath;
+	char classpath[100];
 	Interpretador* interpretador;
 
 	interpretador = malloc(sizeof(Interpretador));
@@ -35,8 +36,8 @@ int main(int argc, char *argv[])
 		printf("ERRO: opcao_imprimir errada. Use 0 (para NAO imprimir) ou 1 (para imprimir)");
 		exit(1);
 	}
-	//strcpy(classpath, argv[2]);
-    methodInit(argv[2], "main", "([Ljava/lang/String;)V", interpretador, 0, atoi(argv[1]));
+	strcpy(classpath, argv[2]);
+    methodInit(classpath, "main", "([Ljava/lang/String;)V", interpretador, 0, atoi(argv[1]));
 
 	//initiateExecution(classpath, "main", "([Ljava/lang/String;)V", (argc - 3), atoi(argv[1]));
 

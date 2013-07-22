@@ -8,6 +8,8 @@
 #include "ReturnInstructions.h"
 #include "TypeConversionInstructions.h"
 
+int isWide = 0;
+
 int (*InstructionArray[])(Interpretador *interpretador) = {
 	nop, // 0x00
     aconst_null,// 0x1
