@@ -966,8 +966,8 @@ void printClass(ClassFile* class, char *classpath)
 	printConstantPool(class, fp);
 	printInterfaces(class, fp);
 	printFields(class, fp);
-	printMethods(class, fp);
-	printAttributes(class, fp);
+	//printMethods(class, fp);
+	//printAttributes(class, fp);
 	fclose(fp);
 	printf("\nArquivo %s gerado com sucesso\n\nTecle <ENTER> para continuar a execucao", filename);
 	getchar();

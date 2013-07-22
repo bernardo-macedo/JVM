@@ -92,10 +92,15 @@ void frameInit(ClassList *init, ClassFile classfile, StackFrame *stackFrame, cha
 	printf("\n\nINITIARFRAME 1\n");
 
 	/* Procura o metodo pelo nome e se não encontrar, procura na super classe */
+<<<<<<< HEAD
 	method = getMethod(*classfile_aux, methodName, descriptor);
 	printf("\n\nINITIARFRAME 2.1\n");
 	while (classfile_aux != NULL && method == NULL && superClassIndex != 0) {
         printf("\n\nINITIARFRAME 2\n");
+=======
+	while (classfile_aux != NULL && (method = getMethod(*classfile_aux, methodName, descriptor)) == NULL && superClassIndex != 0) {
+
+>>>>>>> 2a70aa0943467d87108e9d840a2782d8494fce92
         superClassName = getUTF8(classfile_aux->constantPool, classfile_aux->constantPool[superClassIndex].info.ClassInfo.nameIndex);
         printf("\n\nINITIARFRAME 3\n");
 		classfile_aux = getClassFileByName(init, superClassName);
@@ -229,15 +234,23 @@ void methodInit(char* className, char* methodName, char* methodDescriptor, Inter
     pushFrame(&(interpretador->topStackFrame));
     printf("\n\nPUSHOUFRAME\n");
     frameInit(interpretador->initClass, *cFile, interpretador->topStackFrame, methodName, methodDescriptor);
+<<<<<<< HEAD
     printf("\n\nINITIOUFRAME\n");
     if (interpretador->topStackFrame->nextFrame != NULL) {
+=======
+    //if (interpretador->topStackFrame->nextFrame != NULL) {
+>>>>>>> 2a70aa0943467d87108e9d840a2782d8494fce92
         for (i = countSlots(interpretador->topStackFrame->nextFrame->frame->topOperand, paramsNumber) - 1; i >= 0; i--) {
             if (interpretador->topStackFrame->nextFrame->frame->topOperand->operand.type32_64 == CAT2)
                 i--;
             interpretador->topStackFrame->frame->localVarArray[i] = &(interpretador->topStackFrame->nextFrame->frame->topOperand);
         }
+<<<<<<< HEAD
     }
     printf("\n\nSAIU DA METHOD INIT\n");
+=======
+    //}
+>>>>>>> 2a70aa0943467d87108e9d840a2782d8494fce92
 }
 void methodExec(Interpretador* interpretador) {
     int ret_ = 0;

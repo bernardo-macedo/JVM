@@ -224,7 +224,11 @@
 
 1374482763 c:\users\bernardo\documents\github\jvm\jvm\classstructure.h
 
+<<<<<<< HEAD
 1374493121 source:c:\users\bernardo\documents\github\jvm\jvm\controller.c
+=======
+1374490371 source:c:\users\bernardo\documents\github\jvm\jvm\controller.c
+>>>>>>> 2a70aa0943467d87108e9d840a2782d8494fce92
 	<stdlib.h>
 	"Controller.h"
 	"AuxiliarFunctions.h"
@@ -320,6 +324,7 @@
 1374482763 source:c:\users\bernardo\documents\github\jvm\jvm\typeconversioninstructions.c
 	"TypeConversionInstructions.h"
 
+<<<<<<< HEAD
 1374492593 source:c:\users\bernardo\documents\github\jvm\jvm\auxiliarfunctions.c
 	"AuxiliarFunctions.h"
 
@@ -539,3 +544,8 @@
 1374482763 source:c:\users\renatacristina\desktop\jvm\jvm\typeconversioninstructions.c
 	"TypeConversionInstructions.h"
 
+=======
+1374486056 source:c:\users\bernardo\documents\github\jvm\jvm\auxiliarfunctions.c
+	"AuxiliarFunctions.h"
+
+>>>>>>> 2a70aa0943467d87108e9d840a2782d8494fce92
