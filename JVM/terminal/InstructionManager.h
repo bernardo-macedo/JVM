@@ -16,7 +16,7 @@
 int isWide;
 
 /** Ponteiro para funções de execução de instruções */
-int (*InstructionArray[])(Interpretador*);
+extern int (*InstructionArray[])(Interpretador*);
 
 /** Unions que permitem acesso à mesma região de memória com tipos diferentes
 *   sem efetuar conversão de valores, apenas lendo o dado de maneira distinta.
