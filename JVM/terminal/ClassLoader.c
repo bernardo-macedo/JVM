@@ -574,22 +574,22 @@ ClassFile* readClass(char *classpath)
 
 	class->minorVersion = readU2(fp);
 	class->majorVersion = readU2(fp);
-	/*if ((class->minorVersion != 0) || (class->majorVersion > 46))
+	if ((class->minorVersion != 0) || (class->majorVersion > 46))
 	{
         printf("ERRO: versao do arquivo nao suportada\n");
 		exit(1);
-	}*/
+	}
 	class->constantPoolCount = readU2(fp);
 	readConstantPool(class, fp);
 	class->accessFlags = readU2(fp);
 	class->thisClass = readU2(fp);
 	filepath = malloc(sizeof(char)*strlen(classpath) + 1);
 	strcpy(filepath, classpath);
-	/*if(strcmp((char*)class->constantPool[class->constantPool[class->thisClass].info.ClassInfo.nameIndex].info.Utf8Info.bytes, getClassName(filepath)) != 0)
+	if(strcmp((char*)class->constantPool[class->constantPool[class->thisClass].info.ClassInfo.nameIndex].info.Utf8Info.bytes, getClassName(filepath)) != 0)
 	{
 		printf("ERRO: arquivo com nome diferente\n");
 		exit(1);
-	}*/
+	}
 	class->superClass = readU2(fp);
 	class->interfacesCount = readU2(fp);
 	readInterfaces(class, fp);
@@ -966,8 +966,8 @@ void printClass(ClassFile* class, char *classpath)
 	printConstantPool(class, fp);
 	printInterfaces(class, fp);
 	printFields(class, fp);
-	//printMethods(class, fp);
-	//printAttributes(class, fp);
+	printMethods(class, fp);
+	printAttributes(class, fp);
 	fclose(fp);
 	printf("\nArquivo %s gerado com sucesso\n\nTecle <ENTER> para continuar a execucao", filename);
 	getchar();
