@@ -107,7 +107,7 @@ void preparaExecucaoMetodo(char* nomeClasse, char* nomeMetodo, char* descriptor,
 		execucao *p, int numArgs) {
 
 	ClassFile* cf;
-	pilhaOperandos* pilhaAux;
+	OperandStack* pilhaAux;
 	int i;
 	int numIndicesNecessarios = 0;
 	int operandoTipo;
@@ -119,14 +119,14 @@ void preparaExecucaoMetodo(char* nomeClasse, char* nomeMetodo, char* descriptor,
 	// Preenche a frame alocada
 	// A lista de classes é passada caso o método não seja encontrado
 	// no ClassFile passado
-	inicializaFrame(p->pInicioLista, *cf, p->frameAtual, nomeMetodo,
+	frameInit(p->pInicioLista, *cf, p->frameAtual, nomeMetodo,
 			descriptor);
 
 	// Esse bloco se refere a passagem de argumentos para o array local do novo frame
 	// Se a frame abaixo for NULL então é o método main que está passando por essa função
 	if (p->frameAtual->frameAbaixo != NULL ) {
 
-		inicializaPilha(&pilhaAux);
+		stackInit(&pilhaAux);
 
 		// Agora, temos que contar quantos índices iremos usar no array local
 		// Para tal, usaremos uma pilha de operandos auxiliar, que será preenchida
@@ -134,8 +134,8 @@ void preparaExecucaoMetodo(char* nomeClasse, char* nomeMetodo, char* descriptor,
 		for (i = 0; i < numArgs; i++) {
 			operandoTipo =
 					p->frameAtual->frameAbaixo->topoPilhaOperandos->operandoTipo1;
-			pushOperando(&pilhaAux,
-					popOperando(
+			pushOperand(&pilhaAux,
+					popOperand(
 							&(p->frameAtual->frameAbaixo->topoPilhaOperandos)),
 					operandoTipo);
 
@@ -149,8 +149,8 @@ void preparaExecucaoMetodo(char* nomeClasse, char* nomeMetodo, char* descriptor,
 		// Agora, temos que devolver os operandos para a pilha original
 		for (i = 0; i < numArgs; i++) {
 			operandoTipo = pilhaAux->operandoTipo1;
-			pushOperando(&(p->frameAtual->frameAbaixo->topoPilhaOperandos),
-					popOperando(&pilhaAux), operandoTipo);
+			pushOperand(&(p->frameAtual->frameAbaixo->topoPilhaOperandos),
+					popOperand(&pilhaAux), operandoTipo);
 		}
 
 		// Passa os argumentos para a nova frame
@@ -160,7 +160,7 @@ void preparaExecucaoMetodo(char* nomeClasse, char* nomeMetodo, char* descriptor,
 					== TIPO2) {
 				i--;
 			}
-			p->frameAtual->arrayLocal[i] = popOperando(
+			p->frameAtual->arrayLocal[i] = popOperand(
 					&(p->frameAtual->frameAbaixo->topoPilhaOperandos));
 		}
 	}

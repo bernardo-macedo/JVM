@@ -1,10 +1,3 @@
-/*
- * Frame.h
- *
- *  Created on: 22/01/2013
- *      Author: Vitor
- */
-
 #ifndef FRAME_H_
 #define FRAME_H_
 
@@ -14,105 +7,166 @@
 #include "DebugFuncs.h"
 #include "ClassFile.h"
 
-/*
- * A pilha só mantem operandos de 32 ou 64 bits, os outros sao promovidos a estes tamanhos.
- *
- */
-typedef union _tipoOperando {
 
-	int tipoInt;
+/** Possíveis tipos de um Operando.
+*/
+typedef union OperandType {
+	int intType;
 	long long tipoLong;
-	float tipoFloat;
-	double tipoDouble;
-	void* tipoReferencia;
+	float floatType;
+	double doubleType;
+	void* referenceType;
+} OperandType;
 
-} tipoOperando;
+/** Pilha de operandos.
+* Contém uma variável que indica o tipo do operando, uma que indica se é Tipo 1 ou Tipo 2
+* e um ponteiro para o próximo operando da pilha.
+*/
+typedef struct OperandStack {
+	OperandType operand;
+	int type32_64;
+	struct OperandStack *elementoAbaixo;
+} OperandStack;
 
-typedef struct _Vetor {
-	int size, type;
-	tipoOperando* array;
-} Vetor;
-/*
- * A pilha mantém o topo dela como referência (pilha Homero).
- *
- */
-typedef struct _pilhaOperandos {
-
-	tipoOperando operando;
-	int operandoTipo1;	// flag que diz se o operando empilhado é do tipo 1
-	struct _pilhaOperandos *elementoAbaixo;
-
-} pilhaOperandos;
-
-/*
- * Estrutura de uma frame. Criada quando um método é invocado
- */
-typedef struct _frame {
-	cpInfo *constantPool;
-	tipoOperando *arrayLocal;	// ATENÇÃO: Doubles e longs ocupam 2 índices!!
-	pilhaOperandos *topoPilhaOperandos;
-	u1* codigoAExecutar;
-	struct _frame *frameAbaixo;
+/** O Frame é composto de um array de variáveis locais, uma pilha de operandos
+* e um ambiente de execução dos métodos.
+* A seção de ambiente de execução compreende as variáveis *constantPool, *currOpcode e *pc.
+* Contém um ponteiro para a classe à qual o método pertence,
+* um ponteiro para o opcode da instrução sendo lida
+* e um program counter, que indica o endereço da instrução sendo lida
+*/
+typedef struct Frame {
+	Operand *localVarArray;
+	OperandStack *topOperand;
+	CpInfo *constantPool;
+	u1* currOpcode;
 	u1 *pc;
-} frame;
+} Frame;
 
-typedef union _tipoField {
-	int tipoInt;
-	short tipoShort;
-	float tipoFloat;
+/** O StackFrame é a pilha de frames da JVM.
+* ou seja, a Stack.
+*/
+typedef struct StackFrame {
+	Frame frame;
+	struct StackFrame *nextFrame;
+} StackFrame;
+
+/** Possíveis tipos de um Field.
+*/
+typedef union FieldType {
+	int intType;
+	short shortType;
+	float floatType;
 	long long tipoLong;
-	double tipoDouble;
-	char tipoChar;
-	void* tipoReferencia;
-} tipoField;
+	double doubleType;
+	char charType;
+	void* referenceType;
+} FieldType;
 
-typedef struct _field {
-	char* nome;
-	char* descritor;
-	tipoField valor;
-} field;
+/** Estrutura que define um campo.
+* Contém o nome, o descritor e o tipo do field.
+*/
+typedef struct Field {
+	char* name;
+	char* descriptor;
+	FieldType fieldType;
+} Field;
 
-typedef struct _Object {
+/** Estrutura que define um objeto.
+* Contém a quantidade de campos e os campos.
+*/
+typedef struct Object {
 	int fieldsCount;
-	field* fields;
-} object;
+	Field* fields;
+} Object;
 
-typedef struct _listaObject {
-	object obj;
-	struct _listaObject *proxObj;
-} listaObject;
+/** Estrutura que define uma lista de objetos
+*/
+typedef struct ObjectList {
+	Object object;
+	struct ObjectList *nextObject;
+} ObjectList;
 
-typedef struct _listaClasses {
-	ClassFile cf;
-	int numStaticFields;
-	field* staticFields;
-	listaObject* listaObjetos;
-	struct _listaClasses *proxClasse;
-} listaClasses;
+/** O ClassList é uma lista de classes já carregadas.
+* É tarefa do interpretador, quando for necessário, buscar nesta lista se uma classe já foi carregada
+* e carregá-la caso não tenha sido.
+*/
+typedef struct ClassList {
+	ClassFile classFile;
+	int staticFieldsCount;
+	Field* staticFields;
+	ObjectList* objectsList;
+	struct ClassList *nextClass;
+} ClassList;
 
-typedef struct EXECUCAO {
-	frame* frameAtual;
-	listaClasses* pInicioLista;
-} execucao;
+/** O Interpretador possui uma referencia para o Frame mais recente da pilha de frames
+* e para a classe mais recente da lista de classes
+*/
+typedef struct Interpretador {
+	StackFrame* topStackFrame;
+	ClassList* topClass;
+} Interpretador;
 
-int pilhaVazia(pilhaOperandos *topoPilha);
+/** Estrutura que modela o array que será usado nas instruções de objetos
+*/
+typedef struct Array {
+	int size, type;
+	OperandType* array;
+} Array;
 
-void pushOperando(pilhaOperandos **endTopoPilha, tipoOperando operandoPassado,
-		int operandoTipo);
+/* ******************** Funções ******************** */
 
-void inicializaPilha(pilhaOperandos **endPilha);
+/** Função que verifica se a pilha de operandos está vazia.
+* \param OperandStack* Ponteiro para a pilha de operandos
+* \return 1 se a pilha estiver vazia, 0 se não estiver
+*/
+int emptyStack(OperandStack *topoPilha);
 
-tipoOperando popOperando(pilhaOperandos **endTopoPilha);
+/** Função que coloca um operando na pilha de operandos.
+* \param OperandStack** Endereço da pilha de operandos
+* \param Operand Operando a ser empilhado
+*/
+void pushOperand(OperandStack **endTopoPilha, Operand operandoPassado, int operandoTipo);
 
-void pilhaVaziaFrame(frame *frameAtual);
+/** Função que remove um operando da pilha de operandos.
+* \param OperandStack** Endereço da pilha de operandos
+* \return Operando que foi desempilhado
+*/
+Operand popOperand(OperandStack **endTopoPilha);
 
-void inicializaPilhaFrames(frame **endFrameAtual);
+/** Função que inicializa a pilha de operandos.
+* \param OperandStack** Endereço da pilha de operandos
+*/
+void stackInit(OperandStack **endPilha);
 
-void pushFrame(frame **endFrameAtual);
+/** Função que verifica se a pilha de frames está vazia.
+* \param StackFrame* Ponteiro para a pilha de frames
+* \return 1 se a pilha estiver vazia, 0 se não estiver
+*/
+void emptyStackFrame(StackFrame *topStackFrame);
 
-void popFrame(frame **endFrameAtual);
+/** Função que inicializa a pilha de frames.
+* \param Endereço da pilha de frames
+*/
+void stackFrameInit(StackFrame **endFrameAtual);
 
-void inicializaFrame(listaClasses *inicioLista, ClassFile cf, frame *frame,
-		char* nomeMetodo, char* descriptor);
+/** Função que cria um novo frame na pilha de frames
+* \param StackFrame** Endereço da pilha de frames
+*/
+void pushFrame(StackFrame **endFrameAtual);
+
+/** Função que remove um frame da pilha de frames
+* \param StackFrame** Endereço da pilha de frames
+*/
+void popFrame(StackFrame **endFrameAtual);
+
+/** Função que inicializa um frame
+* \param ClassList* Lista de classes
+* \param ClassFile
+* \param StackFrame* Pilha de frames
+* \param char* Nome do método
+* \param char* Descrição do método
+*/
+void frameInit(ClassList *inicioLista, ClassFile classFile, StackFrame *StackFrame, char* nomeMetodo, char* descriptor);
 
 #endif /* PILHAOPERANDOS_H_ */
