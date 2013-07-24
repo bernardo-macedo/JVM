@@ -48,10 +48,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Execucao.h" />
-		<Unit filename="FuncoesGerais.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="FuncoesGerais.h" />
 		<Unit filename="Instrucoes.c">
 			<Option compilerVar="CC" />
 		</Unit>
