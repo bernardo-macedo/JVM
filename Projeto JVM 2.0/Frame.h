@@ -18,19 +18,13 @@ typedef union OperandType {
 	void* referenceType;
 } OperandType;
 
-/** Estrutura de um Operando.
-* Contém um inteiro que indica se é Tipo 1 ou Tipo 2 e o tipo do operando.
-*/
-typedef struct Operand {
-	int type32_64;
-	OperandType operandType;
-} Operand;
-
 /** Pilha de operandos.
-* Contém uma estrutura do tipo Operando e um ponteiro para o próximo operando da pilha.
+* Contém uma variável que indica o tipo do operando, uma que indica se é Tipo 1 ou Tipo 2
+* e um ponteiro para o próximo operando da pilha.
 */
 typedef struct OperandStack {
-	Operand operand;
+	OperandType operand;
+	int type32_64;
 	struct OperandStack *elementoAbaixo;
 } OperandStack;
 

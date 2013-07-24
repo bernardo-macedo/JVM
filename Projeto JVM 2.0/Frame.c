@@ -1,10 +1,3 @@
-/*
- * Frame.c
- *
- *  Created on: 22/01/2013
- *      Author: Vitor
- */
-
 #include <stdlib.h>
 #include <stdio.h>
 #include "Frame.h"
@@ -15,23 +8,21 @@
 /*
  * Checa se a pilha está vazia. Retorna 1, se sim, 0 se não.
  */
-int emptyStack(OperandStack *topoPilha) {
-	return topoPilha == NULL ;
+int emptyStack(OperandStack *top) {
+	return top == NULL ;
 }
 
 /*
  * Dados um ponteiro de pilha e um operando, atualiza o topo dessa pilha com o operando passado
  */
-void pushOperand(OperandStack **endTopoPilha, tipoOperando operandoPassado,
-		int operandoTipo) {
-
+void pushOperand(OperandStack **topAddress, Operand operand) {
 	OperandStack *p1;
 
 	p1 = malloc(sizeof(OperandStack));
-	p1->operando = operandoPassado;
+	p1->operand = operandoPassado;
 	p1->operandoTipo1 = operandoTipo;
-	p1->elementoAbaixo = *endTopoPilha;
-	*endTopoPilha = p1;
+	p1->elementoAbaixo = *topAddress;
+	*topAddress = p1;
 
 	return;
 
@@ -49,15 +40,15 @@ void stackInit(OperandStack **endPilha) {
 /*
  * Retorna o operando do topo da pilha e libera a memória antes utilizada por ele.
  */
-tipoOperando popOperand(OperandStack **endTopoPilha) {
+tipoOperando popOperand(OperandStack **topAddress) {
 
 	OperandStack *p1;
 	tipoOperando operandoARetornar;
 
-	if (!emptyStack(*endTopoPilha)) {
-		operandoARetornar = (*endTopoPilha)->operando;
-		p1 = *endTopoPilha;
-		*endTopoPilha = (*endTopoPilha)->elementoAbaixo;
+	if (!emptyStack(*topAddress)) {
+		operandoARetornar = (*topAddress)->operando;
+		p1 = *topAddress;
+		*topAddress = (*topAddress)->elementoAbaixo;
 		free(p1);
 	} else {
 		printf("ERRO em popOperand: pilha vazia\n");
