@@ -203,6 +203,7 @@ void appendClassList(ClassList** head, ClassFile classFile) {
 
 ClassFile* loadClass(Interpretador* interpretador, char* className) {
     ClassFile* cFile = getClassFileByName(interpretador->initClass, className);
+    printf("PEGOU PELO NOME\n");
     if (cFile == NULL) {
         cFile = readClass(className);
         appendClassList(&(interpretador->initClass), *cFile);
@@ -228,6 +229,7 @@ void mainInit(char* className, Interpretador* interpretador, int paramsNumber, c
 void methodInit(char* className, char* methodName, char* methodDescriptor, Interpretador* interpretador, int paramsNumber, int print) {
     int i;
     ClassFile* cFile = loadClass(interpretador, className);
+    printf("FEZ LOAD\n");
     if (print)
         printClass(cFile, className);
 

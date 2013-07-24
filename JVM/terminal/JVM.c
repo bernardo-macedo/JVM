@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 	interpretador = malloc(sizeof(Interpretador));
 	frameStackInit(&(interpretador->topStackFrame));
 	initClassList(&(interpretador->initClass));
-
+    /*
 	if(argc < 3)
 	{
 		printf("ERRO: formato de entrada invalido.Use:\nnome_programa opcao_imprimir arquivo.class\n\nA opcao_imprimir pode ser 0 caso nao queira imrpimir o ClassFile ou 1 caso queira");
@@ -37,8 +37,11 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 	strcpy(classpath, argv[2]);
-    methodInit(classpath, "main", "([Ljava/lang/String;)V", interpretador, 0, atoi(argv[1]));
 
+    methodInit(classpath, "main", "([Ljava/lang/String;)V", interpretador, 0, atoi(argv[1]));
+    */
+    printf("COMECOU\n");
+    methodInit("testeLogArit.class", "main", "([Ljava/lang/String;)V", interpretador, 0, 0);
 	//initiateExecution(classpath, "main", "([Ljava/lang/String;)V", (argc - 3), atoi(argv[1]));
 
 	return 0;

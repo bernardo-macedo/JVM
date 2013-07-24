@@ -556,6 +556,7 @@ ClassFile* readClass(char *classpath)
 	FILE *fp;
 	int i;
 	char *filepath;
+	char *comparacao;
 
 	fp = fopen(classpath, "rb");
 	if(fp == NULL)
@@ -585,7 +586,10 @@ ClassFile* readClass(char *classpath)
 	class->thisClass = readU2(fp);
 	filepath = malloc(sizeof(char)*strlen(classpath) + 1);
 	strcpy(filepath, classpath);
-	if(strcmp((char*)class->constantPool[class->constantPool[class->thisClass].info.ClassInfo.nameIndex].info.Utf8Info.bytes, getClassName(filepath)) != 0)
+	char nomeClasse[50];
+	strcpy(nomeClasse, (char*) class->constantPool[class->constantPool[class->thisClass].info.ClassInfo.nameIndex].info.Utf8Info.bytes);
+	//strcpy(comparacao, getClassName(filepath));
+	if(strcmp("eaa", "bla") != 0)
 	{
 		printf("ERRO: arquivo com nome diferente\n");
 		exit(1);
