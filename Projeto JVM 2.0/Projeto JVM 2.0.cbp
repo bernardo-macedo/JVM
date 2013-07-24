@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/Projeto JVM 2.0" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/Projeto JVM 2" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -16,7 +16,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/Projeto JVM 2.0" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/Projeto JVM 2" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -31,7 +31,32 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="main.c">
+		<Unit filename="ClassFile.h" />
+		<Unit filename="ClassLoader.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ClassLoader.h" />
+		<Unit filename="DebugFuncs.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="DebugFuncs.h" />
+		<Unit filename="Execucao.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Execucao.h" />
+		<Unit filename="Frame.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Frame.h" />
+		<Unit filename="FuncoesGerais.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="FuncoesGerais.h" />
+		<Unit filename="Instrucoes.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Instrucoes.h" />
+		<Unit filename="JVM_Psicologia.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
