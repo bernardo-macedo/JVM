@@ -1,48 +1,39 @@
-/*
- * ClassFile.h
- *
- *  Created on: 24/01/2013
- *      Author: Vitor
- *      Co-Author:Filipe
- */
-
-//FONTE -  http://docs.oracle.com/javase/specs/jvms/se5.0/html/VMSpecTOC.doc.html
 #ifndef CLASSFILE_H_
 #define CLASSFILE_H_
 
 /*
  * Definição dos tamanhos de bytes lidos do arquivo .class.
  */
-typedef unsigned char u1;
-typedef unsigned short u2;
-typedef unsigned int u4;
-typedef unsigned long long u8;
+typedef unsigned char 		u1;
+typedef unsigned short 		u2;
+typedef unsigned int 		u4;
+typedef unsigned long long 	u8;
 
 //Tabela de tipos de array
 #define T_BOOLEAN	4
 #define T_CHAR     	5
-#define T_FLOAT 	    6
+#define T_FLOAT 	6
 #define T_DOUBLE 	7
-#define T_BYTE        8
-#define T_SHORT 	    9
-#define T_INT          10
-#define T_LONG       11
+#define T_BYTE      8
+#define T_SHORT 	9
+#define T_INT       10
+#define T_LONG      11
 
 //Tabela dos constant_infos
-#define CONSTANT_Class				7
-#define CONSTANT_FieldRef			9
-#define CONSTANT_Methodref			10
-#define CONSTANT_InterfaceMethodRef	11
-#define CONSTANT_String				8
-#define CONSTANT_Integer			3
-#define CONSTANT_Float				4
-#define CONSTANT_Long				5
-#define CONSTANT_Double				6
-#define CONSTANT_NameAndType		12
-#define CONSTANT_UTF8				1
-#define CONSTANT_MethodHandle		15
-#define CONSTANT_MethodType			16
-#define CONSTANT_InvokeDynamic		18
+#define CONSTANT_Class					7
+#define CONSTANT_FieldRef				9
+#define CONSTANT_Methodref				10
+#define CONSTANT_InterfaceMethodRef		11
+#define CONSTANT_String					8
+#define CONSTANT_Integer				3
+#define CONSTANT_Float					4
+#define CONSTANT_Long					5
+#define CONSTANT_Double					6
+#define CONSTANT_NameAndType			12
+#define CONSTANT_UTF8					1
+#define CONSTANT_MethodHandle			15
+#define CONSTANT_MethodType				16
+#define CONSTANT_InvokeDynamic			18
 
 //Tabela dos access flags de classes
 #define ACC_PUBLIC		0x0001	//Declared public; may be accessed from outside its package.
@@ -76,199 +67,264 @@ typedef unsigned long long u8;
 #define ITEM_Object				7
 #define ITEM_Uninitialized		8
 
-typedef union _float {
+typedef union floatType 
+{
 	u4 bytes;
-	float num;
-} uFloat;
+	float floatNumber;
+} FloatType;
 
-typedef union _double {
+typedef union doubleType 
+{
 	u8 bytes;
-	double num;
-} uDouble;
+	double doubleNumber;
+} DoubleType;
 
 /*
  * Union que indica os vários tipos possíveis da pool de constantes
  */
-typedef union _tipoConstPool {
+typedef union constantPoolConstType
+{
 
-	struct {
+	struct 
+	{
+		/*valor 7*/
 		u2 nameIndex;
-	} classInfo;
+	} ClassInfo;
 
-	struct {
+	struct 
+	{
+		/*valor 9*/
 		u2 classIndex;
 		u2 nameAndTypeIndex;
-	} fieldRefInfo;
+	} FieldRefInfo;
 
-	struct {
+	struct 
+	{
+		/*valor 10*/
 		u2 classIndex;
 		u2 nameAndTypeIndex;
-	} methodRefInfo;
+	} MethodRefInfo;
 
-	struct {
+	struct 
+	{
+		/*valor 11*/
 		u2 classIndex;
 		u2 nameAndTypeIndex;
-	} interfaceMethodRefInfo;
+	} InterfaceMethodRefInfo;
 
-	struct {
+	struct 
+	{
+		/*valor 8*/
 		u2 stringIndex;
-	} stringInfo;
+	} StringInfo;
 
-	struct {
+	struct 
+	{
+		/*valor 3*/
 		u4 bytes;
-	} integerInfo;
+	} IntegerInfo;
 
-	struct {
-		uFloat f;
-	} floatInfo;
+	struct 
+	{
+		/*valor 4*/
+		FloatType f;
+	} FloatInfo;
 
-	struct {
+	struct 
+	{
+		/*valor 6*/
 		u8 bytes;
-	} longInfo;
+	} LongInfo;
 
-	struct {
-		uDouble d;
-	} doubleInfo;
+	struct 
+	{
+		/*valor 6*/
+		DoubleType d;
+	} DoubleInfo;
 
-	struct {
+	struct 
+	{
+		/*valor 12*/
 		u2 nameIndex;
 		u2 descriptorIndex;
-	} nameAndTypeInfo;
+	} NameAndTypeInfo;
 
-	struct {
+	struct 
+	{
+		/*valor 11*/
 		u2 length;
 		u1 *bytes;
-	} UTF8Info;
+	} Utf8Info;
 
-} tipoConstPool;
+} ConstantPoolConstType;
 
 /*
  * Estrutura da pool de constantes.
  */
-typedef struct CP_info {
+typedef struct CcpInfo 
+{
 	u1 tag;
-	tipoConstPool info;
-} cpInfo;
+	ConstantPoolConstType info;
+} CpInfo;
 
 /*
  * Tabela de exceções, usada na parte de code de tipoAttributeInfo
  */
-typedef struct _exceptionTable {
+typedef struct exceptionTable 
+{
 	u2 startPC;
 	u2 endPC;
 	u2 handlerPC;
 	u2 catchType;
-} exceptionTable;
+} ExceptionTable;
 
 /*
  * Estrutura usada para debuggar código de Java (provavelmente não é necessária na nossa implementação)
  */
-typedef struct _lineNumberTable {
+typedef struct lineNumberTable 
+{
 	u2 startPC;
 	u2 lineNumber;
-} lineNumberTable;
+} LineNumberTable;
+
+typedef struct localVariableTable
+{
+	u2 attributeNameIndex;
+	u2 length;
+	u2 nameIndex;
+	u2 descriptorIndex;
+	u2 index;
+} LocalVariableTable;
+
 
 /*
  * Toda entrada CONSTANT_Class_info na constant_pool que representa uma classe ou interface C
  * que não é um membro do pacote deve ter exatamente uma entrada correspondente no array de classes.
  */
-typedef struct _classes {
+typedef struct innerClass
+{
 	u2 innerClassInfoIndex;
 	u2 outerClassInfoIndex;
 	u2 innerNameIndex;
 	u2 innerClassAccessFlags;
-} classes;
+} InnerClass;
 
 /*
  * Um atributo da classe, seja método, constante, membro, etc.
  */
-typedef struct _attributeInfo {
+typedef struct attributeInfo 
+{
 	u2 attributeNameIndex;
 	u4 attributeLength;
-	union {
-		struct {
+	union 
+	{
+		struct 
+		{
 			u2 constantValueIndex;	//Índice válido para a constant pool
-		} constantValue;
+		} ConstantValueAttribute;
 
-		struct {
+		struct 
+		{
 			u2 maxStack;
 			u2 maxLocals;
 			u4 codeLength;
 			u1 *code;
 			u2 exceptionTableLength;
-			exceptionTable *excTable;
+			ExceptionTable *exceptionTable;
 			u2 attributesCount;
-			struct _attributeInfo *attributes;	//Tamanho: attributesCount
-		} code;
+			struct attributeInfo *attributes;	//Tamanho: attributesCount
+		} CodeAttribute;
 
-		struct {
+		struct
+		{
+		} DeprecatedAttribute;
+
+		struct 
+		{
 			u2 numberOfExceptions;
 			u2 *exceptionIndexTable;	//Tamanho: numberOfExceptions
-		} exceptions;
+		} ExceptionsAttribute;
 
-		struct {
-		//Vazia??
-		} synthetic;
+		struct 
+		{
+		} SyntheticAttribute;
 
-		struct {
-			u2 sourceFileIndex;	//Índice valido para a constant pool
-		} sourceFile;
-
-		struct {
+		struct 
+		{
 			u2 numberOfClasses;
-			classes *classes;	//Tamanho: numberOfClasses
-		} innerClasses;
+			InnerClass *classes;	//Tamanho: numberOfClasses
+		} InnerClassAttribute;
 
-		struct {
+		struct
+		{
+			u2 lineNumberTableLength;
+			LineNumberTable *lineNumberTable;
+		} LineNumberTableAttribute;
+
+		struct
+		{
+			u2 localVariableTableLength;
+			LocalVariableTable *localVariableTable;
+		} LocalVariableTableAttribute;
+
+		struct 
+		{
+			u2 sourceFileIndex;	//Índice valido para a constant pool
+		} SourceFileAttribute;
+
+		struct 
+		{
 			u1 *info;
-		} unknown;
+		} UnknownAttribute;
+	} AttributeType;
 
-	} tipoInfo;
-
-} attributeInfo;
+} AttributeInfo;
 
 /*
  * Informações sobre campos de classes
  */
-typedef struct _fieldInfo {
+typedef struct fieldInfo 
+{
 	u2 accessFlags;
 	u2 nameIndex;
 	u2 descriptorIndex;
 	u2 attributesCount;
-	attributeInfo *attributes;	//Tamanho: attributesCount
-} fieldInfo;
+	AttributeInfo *attributes;	//Tamanho: attributesCount
+} FieldInfo;
 
 /*
  * Estrutura que descreve os métodos da class
  */
-typedef struct _methodInfo {
+typedef struct methodInfo 
+{
 	u2 accessFlags;
 	u2 nameIndex;
 	u2 descriptorIndex;
 	u2 attributesCount;
-	attributeInfo *attributes;	//Tamanho: attributesCount
-} methodInfo;
+	AttributeInfo *attributes;	//Tamanho: attributesCount
+} MethodInfo;
 
 /*
  * Estrutura de topo, dela saem todas as outras.
  */
-typedef struct classfile {
-	u4 magic; 				//0xCAFEBABE
-	u2 minor_version; 		// Versionamento  no formato M.m
-	u2 major_version; // onde M = major version e m=minor version , determina se o arquivo será lido ou não
-	u2 constant_pool_count; // numero de entradas na pool de constantes + 1 , um indice da pool só é valido se estiver entre 0 e constant_pool_count
-	cpInfo *constant_pool; //deve ser alocado com constant_pool[constant_pool_count-1];
-	u2 access_flags; // tabela de flags a ser consultada para checar a permissão de acesso ao classfile em questão , item 4.1 na fonte
-	u2 this_class; // deve ser uma entrada válida da constant_pool contendo uma estrutura do tipo CONSTANT_Class_info , item 4.4.1 na fonte
-	u2 super_class; // deve ser 0 caso a classe não tenha herdado de uma superclasse ou uma entrada válida na constant pool  com uma struct CONSTANT_Class_info contendo informaçoes sobre a superclasse direta da classe em questão
-	u2 interfaces_count; // contem o número de superinterfaces diretas da classe ou interface em questão
-	u2 *interfaces; // deve ser alocado com interfaces[interfaces_count]  , deve ser uma entrada válida na constant_pool com as informações das interfaces da classe
-	u2 fields_count; 	// numero de estruturas field_info na tabela de fields
-	fieldInfo *fields; //deve ser alocado com fields[fields_count] ,  cada valor deve ser um field_info(4.5 na fonte) com a descição completa de um field na classe em questão
-	u2 methods_count; // contem o número de estruturas method_info na biblioteca de métodos
-	methodInfo *methods; // deve ser alocado com  methods[methods_count] , biblioteca de métodos
-	u2 attributes_count; 	// numero de entradas na tabela de atributos
-	attributeInfo *attributes;//deve ser alocado com attributes[attributes_count],  tabela de atributos
+typedef struct classFile 
+{
+	u4 				magic;
+	u2 				minorVersion;
+	u2 				majorVersion;
+	u2 				constantPoolCount; 
+	CpInfo 			*constantPool;
+	u2 				accessFlags; 
+	u2 				thisClass; 
+	u2 				superClass; 
+	u2 				interfacesCount;
+	u2 				*interfaces;
+	u2 				fieldsCount; 	
+	FieldInfo 		*fields; 
+	u2 				methodsCount;
+	MethodInfo 		*methods; 
+	u2 				attributesCount; 
+	AttributeInfo 	*attributes;
 } ClassFile;
 
 #endif /* CLASSFILE_H_ */

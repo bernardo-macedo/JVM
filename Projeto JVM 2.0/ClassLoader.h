@@ -1,10 +1,3 @@
-/*
- * ClassLoader.h
- *
- *  Created on: 03/02/2013
- *      Author: Vitor
- */
-
 #ifndef CLASSLOADER_H_
 #define CLASSLOADER_H_
 
@@ -13,22 +6,26 @@
 #include <string.h>
 #include "ClassFile.h"
 
-u1 lerU1(FILE *fp);
-u2 lerU2(FILE *fp);
-u4 lerU4(FILE *fp);
-u8 lerU8(FILE *fp);
+u1 readU1(FILE *fp);
+u2 readU2(FILE *fp);
+u4 readU4(FILE *fp);
+u8 readU8(FILE *fp);
 
-void lerConstantPool(FILE *fp, ClassFile *cf);
-void lerInterfaces(FILE *fp, ClassFile *cf);
-void lerAttributeConstantValue(FILE *fp, attributeInfo *attr);
-void lerAttributeCode(FILE *fp, ClassFile *cf, attributeInfo *attr);
-void lerAttributeException(FILE *fp, attributeInfo *attr);
-void lerAttributeInnerClasses(FILE *fp, attributeInfo *attr);
-void lerAttributeSourceFile(FILE *fp, attributeInfo *attr);
-void lerAttributeUnknown(FILE *fp, attributeInfo *attr);
-void lerAttributeInfo(FILE *fp, ClassFile *cf, attributeInfo *attr);
-void lerFieldInfo(FILE *fp, ClassFile *cf);
-void lerMetodos(FILE *fp, ClassFile *cf);
-ClassFile carregaClassFile(char *nomeClasse);
+
+void readConstantValueAttribute(FILE *fp, AttributeInfo *attributes);
+void readCodeAttribute(ClassFile *class, FILE *fp, AttributeInfo *attributes);
+void readCodeExceptionTable(FILE *fp, ExceptionTable *exceptionTable);
+void readExceptionsAttribute(FILE *fp, AttributeInfo *attributes);
+void readInnerClassesAttribute(FILE *fp, AttributeInfo *attributes);
+void readSourceFileAttribute(FILE *fp, AttributeInfo *attributes);
+void readUnknownAttribute(FILE *fp, AttributeInfo *attributes);
+
+void readConstantPool(ClassFile *class, FILE *fp);
+void readInterfaces(ClassFile *class, FILE *fp);
+void readFields(ClassFile *class, FILE *fp);
+void readAttributes(ClassFile *class, FILE *fp, AttributeInfo *attributes);
+void readMethods(ClassFile *class, FILE *fp);
+
+ClassFile readClass(char *classpath);
 
 #endif /* CLASSLOADER_H_ */
