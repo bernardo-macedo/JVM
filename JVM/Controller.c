@@ -89,16 +89,23 @@ void frameInit(ClassList *init, ClassFile classfile, StackFrame *stackFrame, cha
 	method = NULL;
 	classfile_aux = &classfile;
 	superClassIndex = classfile_aux->superClass;
+	printf("\n\nINITIARFRAME 1\n");
 
 	/* Procura o metodo pelo nome e se não encontrar, procura na super classe */
-	while (classfile_aux != NULL && (method = getMethod(*classfile_aux, methodName, descriptor)) == NULL && superClassIndex != 0) {
-
+	method = getMethod(*classfile_aux, methodName, descriptor);
+	printf("\n\nINITIARFRAME 2.1\n");
+	while (classfile_aux != NULL && method == NULL && superClassIndex != 0) {
+        printf("\n\nINITIARFRAME 2\n");
         superClassName = getUTF8(classfile_aux->constantPool, classfile_aux->constantPool[superClassIndex].info.ClassInfo.nameIndex);
-
+        printf("\n\nINITIARFRAME 3\n");
 		classfile_aux = getClassFileByName(init, superClassName);
+		printf("\n\nINITIARFRAME 4\n");
 		if (classfile_aux != NULL ) {
+            printf("\n\nINITIARFRAME 5\n");
 			superClassIndex = classfile_aux->superClass;
 		}
+		printf("\n\nINITIARFRAME 6\n");
+		method = getMethod(*classfile_aux, methodName, descriptor);
 	}
 
 	if (method == NULL ) {
@@ -108,21 +115,33 @@ void frameInit(ClassList *init, ClassFile classfile, StackFrame *stackFrame, cha
 
 	for (i = 0; i < method->attributesCount; i++) {
 		if (strcmp(getUTF8(classfile_aux->constantPool, method->attributes[i].attributeNameIndex), "Code")	== 0) {
+			printf("\n\nINITIARFRAME 7\n");
 			methodCode = method->attributes[i];
 			break;
 		}
 	}
-
+    printf("\n\nINITIARFRAME 8\n");
     /* belongingClass do frame recebe o constant_pool do classFile */
+    printf("\n\nOI\n");
+    if (stackFrame->frame->execEnvir == NULL) {
+        printf("\n\nFRAME NULL\n");
+    } else {
+        printf("\n\nOK. Stack frame not null\n");
+    }
 	stackFrame->frame->execEnvir->belongingClass = classfile_aux->constantPool;
+	printf("\n\nINITIARFRAME 8.1\n");
 	/* inicializa a pilha de operandos */
 	stackInit(&(stackFrame->frame->topOperand));
+	printf("\n\nINITIARFRAME 8.2\n");
 	/* seta o opcode do método que vai ser executado */
 	stackFrame->frame->execEnvir->currOpcode = methodCode.AttributeType.CodeAttribute.code;
+	printf("\n\nINITIARFRAME 8.3\n");
 	/* inicializa vetor de variáveis locais */
 	stackFrame->frame->localVarArray = malloc(methodCode.AttributeType.CodeAttribute.maxLocals * sizeof(int));
+	printf("\n\nINITIARFRAME 8.4\n");
 	/* seta o pc */
 	stackFrame->frame->execEnvir->pc = stackFrame->frame->execEnvir->currOpcode;
+	printf("\n\nINITIARFRAME 9\n");
 }
 
 
@@ -207,14 +226,17 @@ void methodInit(char* className, char* methodName, char* methodDescriptor, Inter
         printClass(cFile, className);
 
     pushFrame(&(interpretador->topStackFrame));
+    printf("\n\nPUSHOUFRAME\n");
     frameInit(interpretador->initClass, *cFile, interpretador->topStackFrame, methodName, methodDescriptor);
-    //if (interpretador->topStackFrame->nextFrame != NULL) {
+    printf("\n\nINITIOUFRAME\n");
+    if (interpretador->topStackFrame->nextFrame != NULL) {
         for (i = countSlots(interpretador->topStackFrame->nextFrame->frame->topOperand, paramsNumber) - 1; i >= 0; i--) {
             if (interpretador->topStackFrame->nextFrame->frame->topOperand->operand.type32_64 == CAT2)
                 i--;
             interpretador->topStackFrame->frame->localVarArray[i] = &(interpretador->topStackFrame->nextFrame->frame->topOperand);
         }
-    //}
+    }
+    printf("\n\nSAIU DA METHOD INIT\n");
 }
 void methodExec(Interpretador* interpretador) {
     int ret_ = 0;
@@ -223,5 +245,6 @@ void methodExec(Interpretador* interpretador) {
 		opcode = *(interpretador->topStackFrame->frame->execEnvir->pc);
         interpretador->topStackFrame->frame->execEnvir->pc++;
 		ret_ = InstructionArray[opcode](interpretador);
+		printf("\n\nPASSOU NO WHILE\n");
 	}
 }

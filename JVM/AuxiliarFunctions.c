@@ -71,7 +71,7 @@ ClassFile* getClassFileByName(ClassList* init, char* className) {
 
 MethodInfo* getMethod(ClassFile cFile, char* methodName, char* methodDescriptor) {
     int i;
-    char* methodNameAux, methodDescriptorAux;
+    char *methodNameAux, *methodDescriptorAux;
 
 	for (i = 0; i < cFile.methodsCount; i++) {
 	    methodNameAux = cFile.constantPool[cFile.methods[i].nameIndex].info.Utf8Info.bytes;

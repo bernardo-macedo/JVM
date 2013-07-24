@@ -224,7 +224,7 @@
 
 1374482763 c:\users\bernardo\documents\github\jvm\jvm\classstructure.h
 
-1374490371 source:c:\users\bernardo\documents\github\jvm\jvm\controller.c
+1374493121 source:c:\users\bernardo\documents\github\jvm\jvm\controller.c
 	<stdlib.h>
 	"Controller.h"
 	"AuxiliarFunctions.h"
@@ -320,6 +320,6 @@
 1374482763 source:c:\users\bernardo\documents\github\jvm\jvm\typeconversioninstructions.c
 	"TypeConversionInstructions.h"
 
-1374486056 source:c:\users\bernardo\documents\github\jvm\jvm\auxiliarfunctions.c
+1374492593 source:c:\users\bernardo\documents\github\jvm\jvm\auxiliarfunctions.c
 	"AuxiliarFunctions.h"
 
