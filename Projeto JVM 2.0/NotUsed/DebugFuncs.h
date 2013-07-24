@@ -12,8 +12,8 @@
 
 char* tagString(u1 tag);
 
-void printConstantPool(ClassFile cf);
+void printConstantPool(ClassFile classFile);
 
-void printCodigoMetodo(attributeInfo codigoMetodo);
+void printCodigoMetodo(attributeInfo methodCode);
 
 #endif /* DEBUGFUNCS_H_ */

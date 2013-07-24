@@ -1,183 +1,127 @@
-/*
- * Execucao.c
- *
- *  Created on: 21/02/2013
- *      Author: Vitor
- */
-
 #include "Execucao.h"
 #include "ClassLoader.h"
 #include "ClassFile.h"
-#include "Frame.h"
-#include "FuncoesGerais.h"
+#include "Controller.h"
+#include "AuxiliarFunctions.h"
 
-// Função que inicializa a lista com o endereço NULL
-void inicializaClassFileLista(listaClasses** endInicioLista) {
-	*endInicioLista = NULL;
+
+void classListInit(ClassList** listAddress) {
+	*listAddress = NULL;
 }
 
-// Função que adiciona um novo class file carregado à lista encadeada simples de classes
-void insereClassFileLista(listaClasses** endInicioLista, ClassFile cf) {
-
-	listaClasses* p1;
-	listaClasses* p2;
-	u2 indiceNomeField;
-	u2 indiceDescritorField;
+void classListInsert(ClassList** listAddress, ClassFile classFile) {
+	ClassList* p1;
+	ClassList* p2;
+	u2 fieldNameIndex;
+	u2 fieldDescriptorIndex;
 	int i;
 	int j;
 
-	p1 = malloc(sizeof(listaClasses));
-	p1->cf = cf;
-	p1->numStaticFields = 0; // Inicializando para a contagem
+	p1 = malloc(sizeof(ClassList));
+	p1->classFile = classFile;
+	p1->staticFieldsCount = 0;
 
-	// Primeiro, contamos os static fields
-	for (i = 0; i < cf.fields_count; i++) {
-		// Se a flag static estiver ativa, o field é static
-		if ((cf.fields[i].accessFlags & ACC_STATIC) != 0) {
-			p1->numStaticFields++;
+	/* Conta os fields estáticos */
+	for (i = 0; i < classFile.fields_count; i++) {
+		if ((classFile.fields[i].accessFlags & ACC_STATIC) != 0) {
+			p1->staticFieldsCount++;
 		}
 	}
 
-	// Depois, alocamos o espaço necessário para eles
-	p1->staticFields = malloc(sizeof(field) * p1->numStaticFields);
-
+	/* Aloca espaço para os fields */
+	p1->staticFields = malloc(sizeof(Field) * p1->staticFieldsCount);
 	j = 0;
 
-	// E agora, preenchemos com os devidos valores
-	for (i = 0; i < cf.fields_count; i++) {
-
-		indiceNomeField = cf.fields[i].nameIndex;
-		indiceDescritorField = cf.fields[i].descriptorIndex;
-
-		if ((cf.fields[i].accessFlags & ACC_STATIC) != 0) {
-			p1->staticFields[j].nome =
-					cf.constant_pool[indiceNomeField].info.UTF8Info.bytes;
-			p1->staticFields[j].descritor =
-					cf.constant_pool[indiceDescritorField].info.UTF8Info.bytes;
-			p1->staticFields[j].valor.tipoLong = 0; // Inicializo o long com 0 pois ele representa o maior membro da Union, preenchendo tudo com 0
-
+	/* Preenche os fields */
+	for (i = 0; i < classFile.fields_count; i++) {
+		fieldNameIndex = classFile.fields[i].nameIndex;
+		fieldDescriptorIndex = classFile.fields[i].descriptorIndex;
+		if ((classFile.fields[i].accessFlags & ACC_STATIC) != 0) {
+			p1->staticFields[j].name = classFile.constant_pool[fieldNameIndex].info.UTF8Info.bytes;
+			p1->staticFields[j].descriptor = classFile.constant_pool[fieldDescriptorIndex].info.UTF8Info.bytes;
+			p1->staticFields[j].fieldType.longType = 0;
 			j++;
 		}
 	}
 
-	p1->listaObjetos = NULL;
-
-	if (*endInicioLista == NULL ) {
-		*endInicioLista = p1;
+	p1->objectsList = NULL;
+	if (*listAddress == NULL ) {
+		*listAddress = p1;
 	} else {
-		p2 = *endInicioLista;
-
-		while (p2->proxClasse != NULL ) {
-			p2 = p2->proxClasse;
+		p2 = *listAddress;
+		while (p2->nextClass != NULL ) {
+			p2 = p2->nextClass;
 		}
-		p2->proxClasse = p1;
+		p2->nextClass = p1;
 	}
-
-	p1->proxClasse = NULL;
-
+	p1->nextClass = NULL;
 }
 
-// Função que verifica se uma classe já está carregada
-// Se não está, aloca espaço e a inicializa.
-ClassFile* verificaClasse(execucao* p, char* nomeClasse) {
+ClassFile* checkClass(Interpretador* interpretador, char* className) {
+	ClassFile* classFile;
 
-	ClassFile* cf;
-
-	// Verificamos se estamos requisitando uma classe que já está carregada
-	cf = buscaClassFileNome(p->pInicioLista, nomeClasse);
-	// Se cf for NULL, isso quer dizer que ainda temos que carregar a classe na memória
-	if (cf == NULL ) {
-		cf = malloc(sizeof(ClassFile));
-		*cf = carregaClassFile(nomeClasse);
-		insereClassFileLista(&(p->pInicioLista), *cf);
-
-		// Executando o bloco que inicializa os parâmetros statics
-		// Caso ele exista
-		if (buscaMetodoNome(*cf, "<clinit>", "()V") != NULL ) {
-			preparaExecucaoMetodo(nomeClasse, "<clinit>", "()V", p, 0);
-			executaMetodo(p);
+	/* Verifica se a classe já está na lista */
+	classFile = getClassFileName(interpretador->topClass, className);
+	/* Se não estiver */
+	if (classFile == NULL ) {
+		classFile = malloc(sizeof(ClassFile));
+		*classFile = carregaClassFile(className);
+		classListInsert(&(interpretador->topClass), *classFile);
+        /* Inicializa os parâmetros estáticos, se existirem */
+		if (getMethodByName(*classFile, "<clinit>", "()V") != NULL ) {
+			prepareMethod(className, "<clinit>", "()V", interpretador, 0);
+			runMethod(interpretador);
 		}
 	}
-
-	return cf;
+	return classFile;
 }
 
-// Função que inicia e executa um método
-void preparaExecucaoMetodo(char* nomeClasse, char* nomeMetodo, char* descriptor,
-		execucao *p, int numArgs) {
-
-	ClassFile* cf;
+void prepareMethod(char* className, char* methodName, char* descriptor, Interpretador *interpretador, int numArgs) {
+	ClassFile* classFile;
 	OperandStack* pilhaAux;
 	int i;
-	int numIndicesNecessarios = 0;
-	int operandoTipo;
+	int indexNumber = 0;
+	int type32_64;
 
-	cf = verificaClasse(p, nomeClasse);
-	// Aloca a frame nova e a coloca na pilha de frames
-	pushFrame(&(p->frameAtual));
-
-	// Preenche a frame alocada
-	// A lista de classes é passada caso o método não seja encontrado
-	// no ClassFile passado
-	frameInit(p->pInicioLista, *cf, p->frameAtual, nomeMetodo,
-			descriptor);
-
-	// Esse bloco se refere a passagem de argumentos para o array local do novo frame
-	// Se a frame abaixo for NULL então é o método main que está passando por essa função
-	if (p->frameAtual->frameAbaixo != NULL ) {
-
+	classFile = checkClass(interpretador, className);
+	/* Aloca e empilha um novo frame */
+	pushFrame(&(interpretador->topStackFrame));
+    /* Inicializa o frame */
+	frameInit(interpretador->topClass, *classFile, interpretador->topFrame, methodName, descriptor);
+    /* Se entrar no if, não é a main*/
+	if (interpretador->topFrame->nextFrame != NULL ) {
+        /* Passa os operandos para uma pilha auxiliar e faz a contagem */
 		stackInit(&pilhaAux);
-
-		// Agora, temos que contar quantos índices iremos usar no array local
-		// Para tal, usaremos uma pilha de operandos auxiliar, que será preenchida
-		// com os elementos da pilha de operandos da frame abaixo
+		/* Verifica quantos índices serão usados no localVarArray */
 		for (i = 0; i < numArgs; i++) {
-			operandoTipo =
-					p->frameAtual->frameAbaixo->topoPilhaOperandos->operandoTipo1;
-			pushOperand(&pilhaAux,
-					popOperand(
-							&(p->frameAtual->frameAbaixo->topoPilhaOperandos)),
-					operandoTipo);
-
-			if (operandoTipo == TIPO2) {
-				numIndicesNecessarios++;
+			type32_64 = interpretador->topFrame->nextFrame->topoPilhaOperandos->type32_64;
+			pushOperand(&pilhaAux, popOperand(&(interpretador->topFrame->nextFrame->topoPilhaOperandos)),type32_64);
+			if (type32_64 == TIPO2) {
+				indexNumber++;
 			}
-			numIndicesNecessarios++;
-
+			indexNumber++;
+		}
+		/* Coloca os operandos de volta na pilha inicial */
+		for (i = 0; i < numArgs; i++) {
+			type32_64 = pilhaAux->type32_64;
+			pushOperand(&(interpretador->topFrame->nextFrame->topoPilhaOperandos), popOperand(&pilhaAux), type32_64);
 		}
 
-		// Agora, temos que devolver os operandos para a pilha original
-		for (i = 0; i < numArgs; i++) {
-			operandoTipo = pilhaAux->operandoTipo1;
-			pushOperand(&(p->frameAtual->frameAbaixo->topoPilhaOperandos),
-					popOperand(&pilhaAux), operandoTipo);
-		}
-
-		// Passa os argumentos para a nova frame
-		for (i = (numIndicesNecessarios - 1); i >= 0; i--) {
-			// Se o argumento for um double ou um long, pulamos um índice
-			if (p->frameAtual->frameAbaixo->topoPilhaOperandos->operandoTipo1
-					== TIPO2) {
-				i--;
+		/* Passa os argumentos para o novo frame */
+		for (i = (indexNumber - 1); i >= 0; i--) {
+			if (interpretador->topFrame->nextFrame->topoPilhaOperandos->type32_64 == TIPO2) {
+				i--; /* Pula um se for do Tipo 2 */
 			}
-			p->frameAtual->arrayLocal[i] = popOperand(
-					&(p->frameAtual->frameAbaixo->topoPilhaOperandos));
+			interpretador->topFrame->arrayLocal[i] = popOperand(&(interpretador->topFrame->nextFrame->topoPilhaOperandos));
 		}
 	}
-
 }
 
-void executaMetodo(execucao *p) {
-
+void runMethod(Interpretador *interpretador) {
 	int isRetInstr = 0;
-	u1 instrucao;
-
+	u1 instruction;
 	while (!isRetInstr) {
-
-		instrucao = lerU1Codigo(p->frameAtual);
-
-		isRetInstr = vetInstr[instrucao](p);
-
+		instruction = readU1Code(interpretador->topFrame);
+		isRetInstr = vetInstr[instruction](interpretador);
 	}
-
 }

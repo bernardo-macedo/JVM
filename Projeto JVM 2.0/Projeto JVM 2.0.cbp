@@ -31,23 +31,23 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="AuxiliarFunctions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="AuxiliarFunctions.h" />
 		<Unit filename="ClassFile.h" />
 		<Unit filename="ClassLoader.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="ClassLoader.h" />
-		<Unit filename="DebugFuncs.c">
+		<Unit filename="Controller.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="DebugFuncs.h" />
+		<Unit filename="Controller.h" />
 		<Unit filename="Execucao.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Execucao.h" />
-		<Unit filename="Frame.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Frame.h" />
 		<Unit filename="FuncoesGerais.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -56,7 +56,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Instrucoes.h" />
-		<Unit filename="JVM_Psicologia.c">
+		<Unit filename="JVM.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>

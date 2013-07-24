@@ -12,27 +12,28 @@
 #include "DebugFuncs.h"
 #include "ClassLoader.h"
 #include "Frame.h"
-#include "FuncoesGerais.h"
+#include "AuxiliarFunctions.h"
 #include "Instrucoes.h"
+
 
 int main(int argc, char* argv[]) {
 
 	if (argc == 2) {
 
-		char nomeClasse[30];
-		execucao *p;
+		char className[30];
+		Interpretador *interpretador;
 
-		p = malloc(sizeof(execucao));
+		interpretador = malloc(sizeof(Interpretador));
 
-		strcpy(nomeClasse, argv[1]);
+		strcpy(className, argv[1]);
 
-		stackFrameInit(&(p->frameAtual));
-		inicializaClassFileLista(&(p->pInicioLista));
+		stackFrameInit(&(interpretador->topFrame));
+		classListInit(&(interpretador->topClass));
 
-		preparaExecucaoMetodo(nomeClasse, "main", "([Ljava/lang/String;)V", p,
+		prepareMethod(className, "main", "([Ljava/lang/String;)V", interpretador,
 				0);
 
-		executaMetodo(p);
+		runMethod(interpretador);
 
 	} else {
 		printf("ERRO! Possíveis causas:\n");

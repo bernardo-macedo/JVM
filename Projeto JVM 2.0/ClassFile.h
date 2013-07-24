@@ -67,13 +67,13 @@ typedef unsigned long long 	u8;
 #define ITEM_Object				7
 #define ITEM_Uninitialized		8
 
-typedef union floatType 
+typedef union floatType
 {
 	u4 bytes;
 	float floatNumber;
 } FloatType;
 
-typedef union doubleType 
+typedef union doubleType
 {
 	u8 bytes;
 	double doubleNumber;
@@ -85,71 +85,71 @@ typedef union doubleType
 typedef union constantPoolConstType
 {
 
-	struct 
+	struct
 	{
 		/*valor 7*/
 		u2 nameIndex;
 	} ClassInfo;
 
-	struct 
+	struct
 	{
 		/*valor 9*/
 		u2 classIndex;
 		u2 nameAndTypeIndex;
 	} FieldRefInfo;
 
-	struct 
+	struct
 	{
 		/*valor 10*/
 		u2 classIndex;
 		u2 nameAndTypeIndex;
 	} MethodRefInfo;
 
-	struct 
+	struct
 	{
 		/*valor 11*/
 		u2 classIndex;
 		u2 nameAndTypeIndex;
 	} InterfaceMethodRefInfo;
 
-	struct 
+	struct
 	{
 		/*valor 8*/
 		u2 stringIndex;
 	} StringInfo;
 
-	struct 
+	struct
 	{
 		/*valor 3*/
 		u4 bytes;
 	} IntegerInfo;
 
-	struct 
+	struct
 	{
 		/*valor 4*/
 		FloatType f;
 	} FloatInfo;
 
-	struct 
+	struct
 	{
 		/*valor 6*/
 		u8 bytes;
 	} LongInfo;
 
-	struct 
+	struct
 	{
 		/*valor 6*/
 		DoubleType d;
 	} DoubleInfo;
 
-	struct 
+	struct
 	{
 		/*valor 12*/
 		u2 nameIndex;
 		u2 descriptorIndex;
 	} NameAndTypeInfo;
 
-	struct 
+	struct
 	{
 		/*valor 11*/
 		u2 length;
@@ -161,7 +161,7 @@ typedef union constantPoolConstType
 /*
  * Estrutura da pool de constantes.
  */
-typedef struct CcpInfo 
+typedef struct CcpInfo
 {
 	u1 tag;
 	ConstantPoolConstType info;
@@ -170,7 +170,7 @@ typedef struct CcpInfo
 /*
  * Tabela de exceções, usada na parte de code de tipoAttributeInfo
  */
-typedef struct exceptionTable 
+typedef struct exceptionTable
 {
 	u2 startPC;
 	u2 endPC;
@@ -181,7 +181,7 @@ typedef struct exceptionTable
 /*
  * Estrutura usada para debuggar código de Java (provavelmente não é necessária na nossa implementação)
  */
-typedef struct lineNumberTable 
+typedef struct lineNumberTable
 {
 	u2 startPC;
 	u2 lineNumber;
@@ -212,18 +212,18 @@ typedef struct innerClass
 /*
  * Um atributo da classe, seja método, constante, membro, etc.
  */
-typedef struct attributeInfo 
+typedef struct attributeInfo
 {
 	u2 attributeNameIndex;
 	u4 attributeLength;
-	union 
+	union
 	{
-		struct 
+		struct
 		{
 			u2 constantValueIndex;	//Índice válido para a constant pool
 		} ConstantValueAttribute;
 
-		struct 
+		struct
 		{
 			u2 maxStack;
 			u2 maxLocals;
@@ -239,17 +239,17 @@ typedef struct attributeInfo
 		{
 		} DeprecatedAttribute;
 
-		struct 
+		struct
 		{
 			u2 numberOfExceptions;
 			u2 *exceptionIndexTable;	//Tamanho: numberOfExceptions
 		} ExceptionsAttribute;
 
-		struct 
+		struct
 		{
 		} SyntheticAttribute;
 
-		struct 
+		struct
 		{
 			u2 numberOfClasses;
 			InnerClass *classes;	//Tamanho: numberOfClasses
@@ -267,12 +267,12 @@ typedef struct attributeInfo
 			LocalVariableTable *localVariableTable;
 		} LocalVariableTableAttribute;
 
-		struct 
+		struct
 		{
 			u2 sourceFileIndex;	//Índice valido para a constant pool
 		} SourceFileAttribute;
 
-		struct 
+		struct
 		{
 			u1 *info;
 		} UnknownAttribute;
@@ -283,7 +283,7 @@ typedef struct attributeInfo
 /*
  * Informações sobre campos de classes
  */
-typedef struct fieldInfo 
+typedef struct fieldInfo
 {
 	u2 accessFlags;
 	u2 nameIndex;
@@ -295,7 +295,7 @@ typedef struct fieldInfo
 /*
  * Estrutura que descreve os métodos da class
  */
-typedef struct methodInfo 
+typedef struct methodInfo
 {
 	u2 accessFlags;
 	u2 nameIndex;
@@ -307,23 +307,23 @@ typedef struct methodInfo
 /*
  * Estrutura de topo, dela saem todas as outras.
  */
-typedef struct classFile 
+typedef struct classFile
 {
 	u4 				magic;
 	u2 				minorVersion;
 	u2 				majorVersion;
-	u2 				constantPoolCount; 
+	u2 				constantPoolCount;
 	CpInfo 			*constantPool;
-	u2 				accessFlags; 
-	u2 				thisClass; 
-	u2 				superClass; 
+	u2 				accessFlags;
+	u2 				thisClass;
+	u2 				superClass;
 	u2 				interfacesCount;
 	u2 				*interfaces;
-	u2 				fieldsCount; 	
-	FieldInfo 		*fields; 
+	u2 				fieldsCount;
+	FieldInfo 		*fields;
 	u2 				methodsCount;
-	MethodInfo 		*methods; 
-	u2 				attributesCount; 
+	MethodInfo 		*methods;
+	u2 				attributesCount;
 	AttributeInfo 	*attributes;
 } ClassFile;
 
