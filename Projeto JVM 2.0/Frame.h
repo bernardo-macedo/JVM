@@ -5,11 +5,11 @@
  *      Author: Vitor
  */
 
-#ifndef FRAME_H_
-#define FRAME_H_
+#ifndef FRAMECONTROLLER_H_
+#define FRAMECONTROLLER_H_
 
-#define TIPO1 1
-#define TIPO2 0
+#define CAT1 1
+#define CAT2 0
 
 #include "DebugFuncs.h"
 #include "ClassFile.h"
@@ -18,52 +18,52 @@
  * A pilha só mantem operandos de 32 ou 64 bits, os outros sao promovidos a estes tamanhos.
  *
  */
-typedef union _tipoOperando {
+typedef union _operandType {
 
-	int tipoInt;
-	long long tipoLong;
-	float tipoFloat;
-	double tipoDouble;
-	void* tipoReferencia;
+	int int_type;
+	long long long_type;
+	float float_type;
+	double double_type;
+	void* objref_type;
 
-} tipoOperando;
+} operandType;
 
 typedef struct _Vetor {
 	int size, type;
-	tipoOperando* array;
+	operandType* array;
 } Vetor;
 /*
- * A pilha mantém o topo dela como referência (pilha Homero).
+ * A pilha mantém o top dela como referência (pilha Homero).
  *
  */
-typedef struct _pilhaOperandos {
+typedef struct _operandStack {
 
-	tipoOperando operando;
-	int operandoTipo1;	// flag que diz se o operando empilhado é do tipo 1
-	struct _pilhaOperandos *elementoAbaixo;
+	operandType operando;
+	int type32_64;
+	struct _operandStack *nextOperand;
 
-} pilhaOperandos;
+} operandStack;
 
 /*
  * Estrutura de uma frame. Criada quando um método é invocado
  */
 typedef struct _frame {
 	cpInfo *constantPool;
-	tipoOperando *arrayLocal;	// ATENÇÃO: Doubles e longs ocupam 2 índices!!
-	pilhaOperandos *topoPilhaOperandos;
+	operandType *arrayLocal;	// ATENÇÃO: Doubles e longs ocupam 2 índices!!
+	operandStack *topoperandStack;
 	u1* codigoAExecutar;
 	struct _frame *frameAbaixo;
 	u1 *pc;
 } frame;
 
 typedef union _tipoField {
-	int tipoInt;
+	int int_type;
 	short tipoShort;
-	float tipoFloat;
-	long long tipoLong;
-	double tipoDouble;
+	float float_type;
+	long long long_type;
+	double double_type;
 	char tipoChar;
-	void* tipoReferencia;
+	void* objref_type;
 } tipoField;
 
 typedef struct _field {
@@ -95,14 +95,14 @@ typedef struct EXECUCAO {
 	listaClasses* pInicioLista;
 } execucao;
 
-int pilhaVazia(pilhaOperandos *topoPilha);
+int pilhaVazia(operandStack *topPilha);
 
-void pushOperando(pilhaOperandos **endTopoPilha, tipoOperando operandoPassado,
+void pushOperando(operandStack **endtopPilha, operandType operandoPassado,
 		int operandoTipo);
 
-void inicializaPilha(pilhaOperandos **endPilha);
+void inicializaPilha(operandStack **endPilha);
 
-tipoOperando popOperando(pilhaOperandos **endTopoPilha);
+operandType popOperando(operandStack **endtopPilha);
 
 void pilhaVaziaFrame(frame *frameAtual);
 

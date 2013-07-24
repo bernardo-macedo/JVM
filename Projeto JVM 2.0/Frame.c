@@ -15,25 +15,25 @@
 /*
  * Checa se a pilha está vazia. Retorna 1, se sim, 0 se não.
  */
-int pilhaVazia(pilhaOperandos *topoPilha) {
+int pilhaVazia(operandStack *topPilha) {
 
-	return topoPilha == NULL ;
+	return topPilha == NULL ;
 
 }
 
 /*
- * Dados um ponteiro de pilha e um operando, atualiza o topo dessa pilha com o operando passado
+ * Dados um ponteiro de pilha e um operando, atualiza o top dessa pilha com o operando passado
  */
-void pushOperando(pilhaOperandos **endTopoPilha, tipoOperando operandoPassado,
+void pushOperando(operandStack **endtopPilha, operandType operandoPassado,
 		int operandoTipo) {
 
-	pilhaOperandos *p1;
+	operandStack *p1;
 
-	p1 = malloc(sizeof(pilhaOperandos));
+	p1 = malloc(sizeof(operandStack));
 	p1->operando = operandoPassado;
-	p1->operandoTipo1 = operandoTipo;
-	p1->elementoAbaixo = *endTopoPilha;
-	*endTopoPilha = p1;
+	p1->type32_64 = operandoTipo;
+	p1->nextOperand = *endtopPilha;
+	*endtopPilha = p1;
 
 	return;
 
@@ -42,24 +42,24 @@ void pushOperando(pilhaOperandos **endTopoPilha, tipoOperando operandoPassado,
 /*
  * Sempre que uma pilha for iniciada, chame essa função.
  */
-void inicializaPilha(pilhaOperandos **endPilha) {
+void inicializaPilha(operandStack **endPilha) {
 	*endPilha = NULL;
 
 	return;
 }
 
 /*
- * Retorna o operando do topo da pilha e libera a memória antes utilizada por ele.
+ * Retorna o operando do top da pilha e libera a memória antes utilizada por ele.
  */
-tipoOperando popOperando(pilhaOperandos **endTopoPilha) {
+operandType popOperando(operandStack **endtopPilha) {
 
-	pilhaOperandos *p1;
-	tipoOperando operandoARetornar;
+	operandStack *p1;
+	operandType operandoARetornar;
 
-	if (!pilhaVazia(*endTopoPilha)) {
-		operandoARetornar = (*endTopoPilha)->operando;
-		p1 = *endTopoPilha;
-		*endTopoPilha = (*endTopoPilha)->elementoAbaixo;
+	if (!pilhaVazia(*endtopPilha)) {
+		operandoARetornar = (*endtopPilha)->operando;
+		p1 = *endtopPilha;
+		*endtopPilha = (*endtopPilha)->nextOperand;
 		free(p1);
 	} else {
 		printf("ERRO em popOperando: pilha vazia\n");
@@ -172,12 +172,12 @@ void inicializaFrame(listaClasses *inicioLista, ClassFile cf, frame *frame,
 
 	frame->constantPool = cfAux->constant_pool;
 	//inicializando a pilha de operandos
-	inicializaPilha(&(frame->topoPilhaOperandos));
+	inicializaPilha(&(frame->topoperandStack));
 	//Copiando a referência do código do método a ser executado.
 	frame->codigoAExecutar = codigoMetodo.tipoInfo.code.code;
 	//inicializando o array de variáveis locais
 	frame->arrayLocal = malloc(
-			codigoMetodo.tipoInfo.code.maxLocals * sizeof(tipoOperando));
+			codigoMetodo.tipoInfo.code.maxLocals * sizeof(operandType));
 	frame->pc = frame->codigoAExecutar;
 
 }
