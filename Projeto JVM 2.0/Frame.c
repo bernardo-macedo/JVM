@@ -15,25 +15,23 @@
 /*
  * Checa se a pilha está vazia. Retorna 1, se sim, 0 se não.
  */
-int pilhaVazia(operandStack *topPilha) {
-
-	return topPilha == NULL ;
-
+int emptyStack(OperandStack *topoPilha) {
+	return topoPilha == NULL ;
 }
 
 /*
- * Dados um ponteiro de pilha e um operando, atualiza o top dessa pilha com o operando passado
+ * Dados um ponteiro de pilha e um operando, atualiza o topo dessa pilha com o operando passado
  */
-void pushOperando(operandStack **endtopPilha, operandType operandoPassado,
+void pushOperand(OperandStack **endTopoPilha, tipoOperando operandoPassado,
 		int operandoTipo) {
 
-	operandStack *p1;
+	OperandStack *p1;
 
-	p1 = malloc(sizeof(operandStack));
+	p1 = malloc(sizeof(OperandStack));
 	p1->operando = operandoPassado;
-	p1->type32_64 = operandoTipo;
-	p1->nextOperand = *endtopPilha;
-	*endtopPilha = p1;
+	p1->operandoTipo1 = operandoTipo;
+	p1->elementoAbaixo = *endTopoPilha;
+	*endTopoPilha = p1;
 
 	return;
 
@@ -42,27 +40,27 @@ void pushOperando(operandStack **endtopPilha, operandType operandoPassado,
 /*
  * Sempre que uma pilha for iniciada, chame essa função.
  */
-void inicializaPilha(operandStack **endPilha) {
+void stackInit(OperandStack **endPilha) {
 	*endPilha = NULL;
 
 	return;
 }
 
 /*
- * Retorna o operando do top da pilha e libera a memória antes utilizada por ele.
+ * Retorna o operando do topo da pilha e libera a memória antes utilizada por ele.
  */
-operandType popOperando(operandStack **endtopPilha) {
+tipoOperando popOperand(OperandStack **endTopoPilha) {
 
-	operandStack *p1;
-	operandType operandoARetornar;
+	OperandStack *p1;
+	tipoOperando operandoARetornar;
 
-	if (!pilhaVazia(*endtopPilha)) {
-		operandoARetornar = (*endtopPilha)->operando;
-		p1 = *endtopPilha;
-		*endtopPilha = (*endtopPilha)->nextOperand;
+	if (!emptyStack(*endTopoPilha)) {
+		operandoARetornar = (*endTopoPilha)->operando;
+		p1 = *endTopoPilha;
+		*endTopoPilha = (*endTopoPilha)->elementoAbaixo;
 		free(p1);
 	} else {
-		printf("ERRO em popOperando: pilha vazia\n");
+		printf("ERRO em popOperand: pilha vazia\n");
 		exit(1);
 	}
 
@@ -80,7 +78,7 @@ int pilhaFramesVazia(frame *frameAtual) {
 /*
  * Função que inicializa a pilha de frames, semelhante à pilha de operandos
  */
-void inicializaPilhaFrames(frame **endFrameAtual) {
+void stackFrameInit(frame **endFrameAtual) {
 	*endFrameAtual = NULL;
 }
 
@@ -123,7 +121,7 @@ void popFrame(frame **endFrameAtual) {
  *
  * Caso o método que quer ser executado não possa ser achado na classe atual, procuramos nas super classes.
  */
-void inicializaFrame(listaClasses *inicioLista, ClassFile cf, frame *frame,
+void frameInit(listaClasses *inicioLista, ClassFile cf, frame *frame,
 		char* nomeMetodo, char* descriptor) {
 
 	ClassFile* cfAux;
@@ -172,12 +170,12 @@ void inicializaFrame(listaClasses *inicioLista, ClassFile cf, frame *frame,
 
 	frame->constantPool = cfAux->constant_pool;
 	//inicializando a pilha de operandos
-	inicializaPilha(&(frame->topoperandStack));
+	stackInit(&(frame->topoPilhaOperandos));
 	//Copiando a referência do código do método a ser executado.
 	frame->codigoAExecutar = codigoMetodo.tipoInfo.code.code;
 	//inicializando o array de variáveis locais
 	frame->arrayLocal = malloc(
-			codigoMetodo.tipoInfo.code.maxLocals * sizeof(operandType));
+			codigoMetodo.tipoInfo.code.maxLocals * sizeof(tipoOperando));
 	frame->pc = frame->codigoAExecutar;
 
 }

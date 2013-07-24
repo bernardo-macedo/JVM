@@ -20,7 +20,7 @@ int aconst_null(execucao *p) { // empty -> value (NULL) op: 0x01
 
 	op.tipoReferencia = NULL;
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 
 	return 0;
 }
@@ -32,7 +32,7 @@ int iconst_m1(execucao *p) {
 
 	op.tipoInt = -1;
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -42,7 +42,7 @@ int iconst_0(execucao *p) {
 
 	op.tipoInt = 0;
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -52,7 +52,7 @@ int iconst_1(execucao *p) {
 
 	op.tipoInt = 1;
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -62,7 +62,7 @@ int iconst_2(execucao *p) {
 
 	op.tipoInt = 2;
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -72,7 +72,7 @@ int iconst_3(execucao *p) {
 
 	op.tipoInt = 3;
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -82,7 +82,7 @@ int iconst_4(execucao *p) {
 
 	op.tipoInt = 4;
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -92,14 +92,14 @@ int iconst_5(execucao *p) {
 
 	op.tipoInt = 5;
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
 int lconst_0(execucao *p) { // Insere na pilha a constante long 0 op: 0x9
 	tipoOperando op;
 	op.tipoLong = 0;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 	return 0;
 }
 
@@ -107,7 +107,7 @@ int lconst_1(execucao *p) { // Insere na pilha a constante long 1 op: 0xA
 
 	tipoOperando op;
 	op.tipoLong = 1;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 	return 0;
 
 }
@@ -115,35 +115,35 @@ int lconst_1(execucao *p) { // Insere na pilha a constante long 1 op: 0xA
 int fconst_0(execucao *p) { // Insere na pilha a constante float 0.0 op: 0xB
 	tipoOperando op;
 	op.tipoFloat = 0.0;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
 int fconst_1(execucao *p) { // Insere na pilha a constante float 1.0 op: 0xC
 	tipoOperando op;
 	op.tipoFloat = 1.0;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
 int fconst_2(execucao *p) { // Insere na pilha a constante long 2.0 op: 0xD
 	tipoOperando op;
 	op.tipoFloat = 2.0;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
 int dconst_0(execucao *p) { // Insere na pilha a constante float 0.0 op: 0xE
 	tipoOperando op;
 	op.tipoDouble = 0.0;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 	return 0;
 }
 
 int dconst_1(execucao *p) { // Insere na pilha a constante float 0.0 op: 0xF
 	tipoOperando op;
 	op.tipoDouble = 1.0;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 	return 0;
 }
 
@@ -155,7 +155,7 @@ int bipush(execucao *p) { //insere na pilha o valor lido do índice op: 0x10
 
 	byteLido = lerU1Codigo(p->frameAtual);
 	op.tipoInt = byteLido;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 
 	return 0;
 }
@@ -167,7 +167,7 @@ int sipush(execucao *p) { //insere na pilha o valor (u2) lido do índice op: 0x11
 
 	shortLido = lerU2Codigo(p->frameAtual);
 	op.tipoInt = shortLido;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 
 	return 0;
 }
@@ -199,7 +199,7 @@ int ldc(execucao *p) {
 		exit(1);
 	}
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 
 	return 0;
 }
@@ -228,7 +228,7 @@ int ldc_w(execucao *p) {  // ldc com index duplo op: 0x13
 		exit(1);
 	}
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 
 	return 0;
 }
@@ -253,7 +253,7 @@ int ldc2_w(execucao *p) {  // ldc com index duplo op: 0x14
 		exit(1);
 	}
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 
 	return 0;
 }
@@ -264,7 +264,7 @@ int iload(execucao *p) { //insere na pilha o valor da posicao apontada por um in
 	tipoOperando op;
 	index = lerU1Codigo(p->frameAtual);
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -273,7 +273,7 @@ int iload_0(execucao *p) { //insere na pilha o valor da posicao 0 do vetor de va
 	tipoOperando op;
 	index = 0;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -282,7 +282,7 @@ int iload_1(execucao *p) { //insere na pilha um int da constant pool op: 0X1B , 
 	tipoOperando op;
 	index = 1;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -291,7 +291,7 @@ int iload_2(execucao *p) { //insere na pilha um int da constant pool op: 0X1C , 
 	tipoOperando op;
 	index = 2;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -300,7 +300,7 @@ int iload_3(execucao *p) { //insere na pilha um int da constant pool op: 0X1D , 
 	tipoOperando op;
 	index = 3;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -309,7 +309,7 @@ int fload(execucao *p) {
 	tipoOperando op;
 	index = lerU1Codigo(p->frameAtual);
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -318,7 +318,7 @@ int fload_0(execucao *p) {
 	tipoOperando op;
 	index = 0;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -327,7 +327,7 @@ int fload_1(execucao *p) {
 	tipoOperando op;
 	index = 1;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -336,7 +336,7 @@ int fload_2(execucao *p) {
 	tipoOperando op;
 	index = 2;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -345,7 +345,7 @@ int fload_3(execucao *p) {
 	tipoOperando op;
 	index = 3;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -354,7 +354,7 @@ int lload(execucao *p) {
 	tipoOperando op;
 	index = lerU1Codigo(p->frameAtual);
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 	return 0;
 }
 
@@ -363,7 +363,7 @@ int lload_0(execucao *p) {
 	tipoOperando op;
 	index = 0;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 	return 0;
 }
 
@@ -372,7 +372,7 @@ int lload_1(execucao *p) {
 	tipoOperando op;
 	index = 1;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 	return 0;
 }
 
@@ -381,7 +381,7 @@ int lload_2(execucao *p) {
 	tipoOperando op;
 	index = 2;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 	return 0;
 }
 
@@ -390,7 +390,7 @@ int lload_3(execucao *p) {
 	tipoOperando op;
 	index = 3;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 	return 0;
 }
 
@@ -399,7 +399,7 @@ int dload(execucao *p) {
 	tipoOperando op;
 	index = lerU1Codigo(p->frameAtual);
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 	return 0;
 }
 
@@ -408,7 +408,7 @@ int dload_0(execucao *p) {
 	tipoOperando op;
 	index = 0;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 	return 0;
 }
 
@@ -417,7 +417,7 @@ int dload_1(execucao *p) {
 	tipoOperando op;
 	index = 1;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 	return 0;
 }
 
@@ -426,7 +426,7 @@ int dload_2(execucao *p) {
 	tipoOperando op;
 	index = 2;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 	return 0;
 }
 
@@ -435,7 +435,7 @@ int dload_3(execucao *p) {
 	tipoOperando op;
 	index = 3;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 	return 0;
 }
 
@@ -444,7 +444,7 @@ int aload(execucao *p) {
 	tipoOperando op;
 	index = lerU1Codigo(p->frameAtual);
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -453,7 +453,7 @@ int aload_0(execucao *p) {
 	tipoOperando op;
 	index = 0;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -462,7 +462,7 @@ int aload_1(execucao *p) {
 	tipoOperando op;
 	index = 1;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -471,7 +471,7 @@ int aload_2(execucao *p) {
 	tipoOperando op;
 	index = 2;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -480,7 +480,7 @@ int aload_3(execucao *p) {
 	tipoOperando op;
 	index = 3;
 	op = p->frameAtual->arrayLocal[index];
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 0;
 }
 
@@ -489,10 +489,10 @@ int aload_3(execucao *p) {
 int iaload(execucao *p) { //carrega um int de um vetor op: 0x2E , 0X33 , 0X34 , 0X35
 	tipoOperando arrayref, index;
 	Vetor *vet;
-	index = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	arrayref = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	index = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	arrayref = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	vet = arrayref.tipoReferencia;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos),
+	pushOperand(&(p->frameAtual->topoPilhaOperandos),
 			vet->array[index.tipoInt], TIPO1);
 	return 0;
 }
@@ -500,10 +500,10 @@ int iaload(execucao *p) { //carrega um int de um vetor op: 0x2E , 0X33 , 0X34 , 
 int laload(execucao *p) { //carrega um long de um vetor op: 0x2F
 	tipoOperando arrayref, index;
 	Vetor *vet;
-	index = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	arrayref = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	index = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	arrayref = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	vet = arrayref.tipoReferencia;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos),
+	pushOperand(&(p->frameAtual->topoPilhaOperandos),
 			vet->array[index.tipoInt], TIPO2);
 	return 0;
 }
@@ -511,10 +511,10 @@ int laload(execucao *p) { //carrega um long de um vetor op: 0x2F
 int faload(execucao *p) { //carrega um float de um vetor op: 0x30
 	tipoOperando arrayref, index;
 	Vetor *vet;
-	index = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	arrayref = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	index = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	arrayref = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	vet = arrayref.tipoReferencia;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos),
+	pushOperand(&(p->frameAtual->topoPilhaOperandos),
 			vet->array[index.tipoInt], TIPO1);
 	return 0;
 }
@@ -522,10 +522,10 @@ int faload(execucao *p) { //carrega um float de um vetor op: 0x30
 int daload(execucao *p) { //carrega um double de um vetor op: 0x31
 	tipoOperando arrayref, index;
 	Vetor *vet;
-	index = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	arrayref = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	index = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	arrayref = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	vet = arrayref.tipoReferencia;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos),
+	pushOperand(&(p->frameAtual->topoPilhaOperandos),
 			vet->array[index.tipoInt], TIPO2);
 	return 0;
 }
@@ -533,10 +533,10 @@ int daload(execucao *p) { //carrega um double de um vetor op: 0x31
 int aaload(execucao *p) { //carrega um float de um vetor op: 0x32
 	tipoOperando arrayref, index;
 	Vetor *vet;
-	index = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	arrayref = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	index = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	arrayref = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	vet = arrayref.tipoReferencia;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos),
+	pushOperand(&(p->frameAtual->topoPilhaOperandos),
 			vet->array[index.tipoInt], TIPO1);
 	return 0;
 }
@@ -545,35 +545,35 @@ int store(execucao *p) { //recebe um indice e salva o topo da pilha de operandos
 	u1 index;
 	tipoOperando op;
 	index = lerU1Codigo(p->frameAtual);
-	op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	p->frameAtual->arrayLocal[index] = op;
 	return 0;
 }
 
 int store_0(execucao *p) { //salva o valor na posicao 0 0X3B,0X3F,0X43,0X47,0x4C
 	tipoOperando op;
-	op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	p->frameAtual->arrayLocal[0] = op;
 	return 0;
 }
 
 int store_1(execucao *p) { //salva o valor na posicao 1 0X3C,0X40,0X44,0X48,0x4D
 	tipoOperando op;
-	op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	p->frameAtual->arrayLocal[1] = op;
 	return 0;
 }
 
 int store_2(execucao *p) { //salva o valor na posicao 2 0X3D,0X41,0X45,0X49,0x4E
 	tipoOperando op;
-	op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	p->frameAtual->arrayLocal[2] = op;
 	return 0;
 }
 
 int store_3(execucao *p) { //salva o valor na posicao 3 0X3E,0X42,0X46,0X4A
 	tipoOperando op;
-	op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	p->frameAtual->arrayLocal[3] = op;
 	return 0;
 }
@@ -583,9 +583,9 @@ int store_3(execucao *p) { //salva o valor na posicao 3 0X3E,0X42,0X46,0X4A
 int iastore(execucao *p) { // salva um int num vetor op:0x4F , 0x54 , 0x55 , 0x56
 	tipoOperando arrayref, index, value;
 	Vetor *vet;
-	value = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	index = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	arrayref = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	value = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	index = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	arrayref = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	vet = arrayref.tipoReferencia;
 	vet->array[index.tipoInt].tipoInt = value.tipoInt;
 	return 0;
@@ -594,9 +594,9 @@ int iastore(execucao *p) { // salva um int num vetor op:0x4F , 0x54 , 0x55 , 0x5
 int lastore(execucao *p) { // salva um long num vetor op:0x50
 	tipoOperando arrayref, index, value;
 	Vetor *vet;
-	value = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	index = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	arrayref = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	value = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	index = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	arrayref = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	vet = arrayref.tipoReferencia;
 	vet->array[index.tipoInt].tipoLong = value.tipoLong;
 	return 0;
@@ -605,9 +605,9 @@ int lastore(execucao *p) { // salva um long num vetor op:0x50
 int fastore(execucao *p) { // salva um float num vetor 0p:0x51
 	tipoOperando arrayref, index, value;
 	Vetor *vet;
-	value = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	index = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	arrayref = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	value = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	index = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	arrayref = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	vet = arrayref.tipoReferencia;
 	vet->array[index.tipoInt].tipoFloat = value.tipoFloat;
 	return 0;
@@ -616,9 +616,9 @@ int fastore(execucao *p) { // salva um float num vetor 0p:0x51
 int dastore(execucao *p) { // salva um double num vetor 0p:0x52
 	tipoOperando arrayref, index, value;
 	Vetor *vet;
-	value = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	index = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	arrayref = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	value = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	index = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	arrayref = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	vet = arrayref.tipoReferencia;
 	vet->array[index.tipoInt].tipoDouble = value.tipoDouble;
 	return 0;
@@ -627,9 +627,9 @@ int dastore(execucao *p) { // salva um double num vetor 0p:0x52
 int aastore(execucao *p) { // salva uma referencia num vetor 0p:0x53
 	tipoOperando arrayref, index, value;
 	Vetor *vet;
-	value = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	index = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	arrayref = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	value = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	index = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	arrayref = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	vet = arrayref.tipoReferencia;
 	vet->array[index.tipoInt].tipoReferencia = value.tipoReferencia;
 	return 0;
@@ -639,7 +639,7 @@ int aastore(execucao *p) { // salva uma referencia num vetor 0p:0x53
 
 int pop(execucao *p) { // retira um tipo 1 da pilha de operandos op: 0x57
 	if (p->frameAtual->topoPilhaOperandos->operandoTipo1 == TIPO1) {
-		popOperando(&(p->frameAtual->topoPilhaOperandos));
+		popOperand(&(p->frameAtual->topoPilhaOperandos));
 	} else {
 		printf("Pop chamado sobre valor de tipo 2");
 		exit(1);
@@ -651,10 +651,10 @@ int pop2(execucao *p) { // retira dois tipo 1 da pilha de operandos ou um tipo 2
 	if ((p->frameAtual->topoPilhaOperandos->operandoTipo1 == TIPO1)
 			&& (p->frameAtual->topoPilhaOperandos->elementoAbaixo->operandoTipo1
 					== TIPO1)) {
-		popOperando(&(p->frameAtual->topoPilhaOperandos));
-		popOperando(&(p->frameAtual->topoPilhaOperandos));
+		popOperand(&(p->frameAtual->topoPilhaOperandos));
+		popOperand(&(p->frameAtual->topoPilhaOperandos));
 	} else {
-		popOperando(&(p->frameAtual->topoPilhaOperandos));
+		popOperand(&(p->frameAtual->topoPilhaOperandos));
 	}
 	return 0;
 }
@@ -665,9 +665,9 @@ int dup(execucao *p) { // duplica o elemento no topo da pilha op: 0x59
 	int operandoTipo;
 
 	operandoTipo = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-	op = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipo);
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipo);
+	op = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipo);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipo);
 	return 0;
 }
 
@@ -676,14 +676,14 @@ int dup_x1(execucao *p) { // duplica o elemento no topo da pilha , dois elemento
 	int operandoTipoOp, operandoTipoOp1;
 
 	operandoTipoOp = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-	op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 
 	operandoTipoOp1 = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, operandoTipoOp1);
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, operandoTipoOp1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
 	return 0;
 }
 
@@ -692,18 +692,18 @@ int dup_x2(execucao *p) { // duplica o elemento no topo da pilha tres a baixo op
 	int operandoTipoOp, operandoTipoOp1, operandoTipoOp2;
 
 	operandoTipoOp = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-	op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 
 	operandoTipoOp1 = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 
 	operandoTipoOp2 = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op2, operandoTipoOp2);
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, operandoTipoOp1);
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op2, operandoTipoOp2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, operandoTipoOp1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
 	return 0;
 }
 
@@ -712,21 +712,21 @@ int dup2(execucao *p) { // duplica o elemento no topo da pilha , dois elementos 
 	int operandoTipoOp, operandoTipoOp1;
 
 	operandoTipoOp = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-	op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 
 	if (operandoTipoOp == TIPO1) {
 		operandoTipoOp1 = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-		op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+		op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op1,
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op1,
 				operandoTipoOp1);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op1,
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op1,
 				operandoTipoOp1);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
 	} else {
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
 	}
 
 	return 0;
@@ -737,30 +737,30 @@ int dup2_x1(execucao *p) { //duplica os dois primeiros elementos da pilha a baix
 	int operandoTipoOp, operandoTipoOp1, operandoTipoOp2;
 
 	operandoTipoOp = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-	op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 
 	if (operandoTipoOp == TIPO1) {
 		operandoTipoOp1 = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-		op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+		op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	}
 
 	operandoTipoOp2 = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 
 	if (operandoTipoOp == TIPO1) {
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op1,
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op1,
 				operandoTipoOp1);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op2,
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op2,
 				operandoTipoOp2);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op1,
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op1,
 				operandoTipoOp1);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
 	} else {
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op2,
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op2,
 				operandoTipoOp2);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
 	}
 
 	return 0;
@@ -771,53 +771,53 @@ int dup2_x2(execucao *p) { //duplica os dois primeiros elementos da pilha a baix
 	int operandoTipoOp, operandoTipoOp1, operandoTipoOp2, operandoTipoOp3;
 
 	operandoTipoOp = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-	op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 
 	if (operandoTipoOp == TIPO1) {
 		operandoTipoOp1 = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-		op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+		op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	}
 
 	operandoTipoOp2 = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 
 	if (operandoTipoOp2 == TIPO1) {
 		operandoTipoOp3 = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-		op3 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+		op3 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	}
 
 	if (operandoTipoOp == TIPO1 && operandoTipoOp2 == TIPO1) {
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op1,
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op1,
 				operandoTipoOp1);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op3,
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op3,
 				operandoTipoOp3);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op2,
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op2,
 				operandoTipoOp2);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op1,
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op1,
 				operandoTipoOp1);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
 	} else if (operandoTipoOp2 == TIPO1) {
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op3,
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op3,
 				operandoTipoOp3);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op2,
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op2,
 				operandoTipoOp2);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
 	} else if (operandoTipoOp == TIPO1) {
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op1,
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op1,
 				operandoTipoOp1);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op2,
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op2,
 				operandoTipoOp2);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op1,
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op1,
 				operandoTipoOp1);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
 	} else {
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op2,
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op2,
 				operandoTipoOp2);
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, operandoTipoOp);
 	}
 	return 0;
 }
@@ -827,150 +827,150 @@ int swap(execucao *p) { //troca os dois elementos do topo da pilha op:0x5F
 	int operandoTipoOp1, operandoTipoOp2;
 
 	operandoTipoOp1 = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 
 	operandoTipoOp2 = p->frameAtual->topoPilhaOperandos->operandoTipo1;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 
 	if (operandoTipoOp1 != TIPO1 || operandoTipoOp2 != TIPO1) {
 		printf("ERRO em swap: um dos operandos é tipo 2 (double ou long)\n");
 		exit(1);
 	}
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, operandoTipoOp1);
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op2, operandoTipoOp2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, operandoTipoOp1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op2, operandoTipoOp2);
 	return 0;
 }
 
 // add --------------------------------------------------------------------------------------
 int iadd(execucao *p) { // v1 , v2 -> v1+v2 op: 0x60
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoInt = op2.tipoInt + op1.tipoInt;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int ladd(execucao *p) { // v1 , v2 -> v1+v2 op: 0x61
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoLong = op2.tipoLong + op1.tipoLong;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 	return 0;
 }
 
 int fadd(execucao *p) { // v1 , v2 -> v1+v2 op: 0x62
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoFloat = op2.tipoFloat + op1.tipoFloat;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int dadd(execucao *p) { // v1 , v2 -> v1+v2 op: 0x63
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoDouble = op2.tipoDouble + op1.tipoDouble;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 	return 0;
 }
 
 // sub --------------------------------------------------------------------------------------
 int isub(execucao *p) { // v1 , v2 -> v1-v2 op: 0x64
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoInt = op2.tipoInt - op1.tipoInt;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int lsub(execucao *p) { // v1 , v2 -> v1-v2 op: 0x65
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoFloat = op2.tipoFloat - op1.tipoFloat;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 	return 0;
 }
 
 int fsub(execucao *p) { // v1 , v2 -> v1-v2 op: 0x66
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoFloat = op2.tipoFloat - op1.tipoFloat;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int dsub(execucao *p) { // v1 , v2 -> v1-v2 op: 0x67
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoDouble = op2.tipoDouble - op1.tipoDouble;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 	return 0;
 }
 
 // mul --------------------------------------------------------------------------------------
 int imul(execucao *p) { // v1 , v2 -> v1*v2 op: 0x68
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoInt = op2.tipoInt * op1.tipoInt;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int lmul(execucao *p) { // v1 , v2 -> v1*v2 op: 0x69
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoLong = op2.tipoLong * op1.tipoLong;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 	return 0;
 }
 
 int fmul(execucao *p) { // v1 , v2 -> v1*v2 op: 0x6A
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoFloat = op2.tipoFloat * op1.tipoFloat;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int dmul(execucao *p) { // v1 , v2 -> v1*v2 op: 0x6B
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoDouble = op2.tipoDouble * op1.tipoDouble;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 	return 0;
 }
 
 // div --------------------------------------------------------------------------------------
 int idiv(execucao *p) { // v1 , v2 -> v1/v2 op: 0x6C
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoInt = op2.tipoInt / op1.tipoInt;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int ldiv_(execucao *p) { // v1 , v2 -> v1 / v2 op: 0x6D
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 
 	op1.tipoLong = op2.tipoLong / op1.tipoLong;
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 
 	return 0;
 
@@ -978,59 +978,59 @@ int ldiv_(execucao *p) { // v1 , v2 -> v1 / v2 op: 0x6D
 
 int fdiv(execucao *p) { // v1 , v2 -> v1/v2 op: 0x6E
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoFloat = op2.tipoFloat / op1.tipoFloat;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int ddiv(execucao *p) { // v1 , v2 -> v1/v2 op: 0x6F
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoDouble = op2.tipoDouble / op1.tipoDouble;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 	return 0;
 }
 
 // rem --------------------------------------------------------------------------------------
 int irem(execucao *p) { // v1 , v2 -> v1 mod v2 op: 0x70
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoInt = op2.tipoInt % op1.tipoInt;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int lrem(execucao *p) { // v1 , v2 -> v1 mod v2 op: 0x71
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoLong = op2.tipoLong % op1.tipoLong;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 	return 0;
 }
 
 int frem(execucao *p) { // v1 , v2 -> v1 mod v2 op: 0x72
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoFloat = (float) fmod(op2.tipoFloat, op1.tipoFloat);
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int drem_(execucao *p) { // v1 , v2 -> v1 mod v2 op: 0x73
 	tipoOperando op1, op2;
 
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 
 	op1.tipoDouble = fmod(op2.tipoDouble, op1.tipoDouble);
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 
 	return 0;
 }
@@ -1038,54 +1038,54 @@ int drem_(execucao *p) { // v1 , v2 -> v1 mod v2 op: 0x73
 //neg --------------------------------------------------------------------------------------
 int ineg(execucao *p) { // v1 -> -v1 op: 0x74
 	tipoOperando op1;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoInt = 0 - op1.tipoInt;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int lneg(execucao *p) { // v1 -> -v1 op: 0x74
 	tipoOperando op1;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoLong = 0 - op1.tipoLong;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 	return 0;
 }
 
 int fneg(execucao *p) { // v1 -> -v1 op: 0x76
 	tipoOperando op1;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoFloat = 0 - op1.tipoFloat;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int dneg(execucao *p) { // v1 -> -v1 op: 0x74
 	tipoOperando op1;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoDouble = 0 - op1.tipoDouble;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 	return 0;
 }
 
 // shifts --------------------------------------------------------------------------------
 int ishl(execucao *p) { // v1 , v2 -> v1<<5 bits de baixo de v2 op: 0x78
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));	// v2
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));	// v1
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));	// v2
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));	// v1
 	op1.tipoInt = op1.tipoInt & 0x1F;// isolando os 5 bits menos significativos de v2
 	op1.tipoInt = op2.tipoInt << op1.tipoInt;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int lshl(execucao *p) { // v1 , v2 -> v1<<6 bits de baixo de v2 op: 0x79
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));	// v2
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));	// v1
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));	// v2
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));	// v1
 	op1.tipoLong = op1.tipoLong & 0x3F;	// isolando os 6 bits menos significativos de v2
 	op1.tipoLong = op2.tipoLong << op1.tipoLong;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 	return 0;
 }
 
@@ -1093,8 +1093,8 @@ int ishr(execucao *p) { // v1 , v2 -> v1>>5 bits de baixo de v2 op: 0x7A
 	tipoOperando op1, op2;
 	int mask = 0x80000000;
 	int count = 0;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));	// v2
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));	// v1
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));	// v2
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));	// v1
 	op1.tipoInt = op1.tipoInt & 0x1F;// isolando os 5 bits menos significativos de v2
 	if (op2.tipoInt < 0) {
 		int i;
@@ -1107,7 +1107,7 @@ int ishr(execucao *p) { // v1 , v2 -> v1>>5 bits de baixo de v2 op: 0x7A
 	} else {
 		op1.tipoInt = op2.tipoInt >> op1.tipoInt;
 	}
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
@@ -1115,8 +1115,8 @@ int lshr(execucao *p) { // v1 , v2 -> v1>>5 bits de baixo de v2 op: 0x7B
 	tipoOperando op1, op2;
 	long long mask = 0x8000000000000000;
 	long long count = 0;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));	// v2
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));	// v1
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));	// v2
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));	// v1
 	op1.tipoLong = op1.tipoLong & 0x3F;	// isolando os 5 bits menos significativos de v2
 	if (op2.tipoLong < 0) {
 		int i;
@@ -1129,27 +1129,27 @@ int lshr(execucao *p) { // v1 , v2 -> v1>>5 bits de baixo de v2 op: 0x7B
 	} else {
 		op1.tipoLong = op2.tipoLong >> op1.tipoLong;
 	}
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 	return 0;
 }
 
 int iushr(execucao *p) { // v1 , v2 -> v1>>5 bits de baixo de v2 op: 0x7C
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));	// v2
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));	// v1
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));	// v2
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));	// v1
 	op1.tipoInt = op1.tipoInt & 0x1F;// isolando os 5 bits menos significativos de v2
 	op1.tipoInt = op2.tipoInt >> op1.tipoInt;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int lushr(execucao *p) { // op: 0x7D
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));	// v2
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));	// v1
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));	// v2
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));	// v1
 	op1.tipoLong = op1.tipoLong & 0x3F;	// isolando os 6 bits menos significativos de v2
 	op1.tipoLong = op2.tipoLong >> op1.tipoLong;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 	return 0;
 }
 
@@ -1157,55 +1157,55 @@ int lushr(execucao *p) { // op: 0x7D
 int iand(execucao *p) {	// V1 , V2 -> V1 AND V2 op: 0x7E
 
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoInt = op1.tipoInt & op2.tipoInt;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int land(execucao *p) {	// V1 , V2 -> V1 AND V2 op: 0x7F
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoLong = op1.tipoLong & op2.tipoLong;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 	return 0;
 }
 
 int ior(execucao *p) {	// V1 , V2 -> V1 OR V2 op: 0x80
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoInt = op1.tipoInt | op2.tipoInt;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int lor(execucao *p) {	// V1 , V2 -> V1 OR V2 op: 0x81
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoLong = op1.tipoLong | op2.tipoLong;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 	return 0;
 }
 
 int ixor(execucao *p) {	// V1 , V2 -> V1 OR V2 op: 0x82
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoInt = op1.tipoInt ^ op2.tipoInt;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	return 0;
 }
 
 int lxor(execucao *p) {	// V1 , V2 -> V1 OR V2 op: 0x83
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op1.tipoLong = op1.tipoLong ^ op2.tipoLong;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO2);
 	return 0;
 }
 
@@ -1221,210 +1221,210 @@ int iinc(execucao *p) {
 // x2y-----------------------------------------------------------------------------------------------------------
 int i2l(execucao *p) {//  Converte o valor do topo da pilha de int para long op: 0x85
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op2.tipoLong = op1.tipoInt;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op2, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op2, TIPO2);
 	return 0;
 }
 
 int i2f(execucao *p) { //  Converte o valor do topo da pilha de int para float op: 0x86
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op2.tipoFloat = (float) op1.tipoInt;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op2, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op2, TIPO1);
 	return 0;
 }
 
 int i2d(execucao *p) { //  Converte o valor do topo da pilha de int para double op: 0x87
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op2.tipoDouble = (double) op1.tipoInt;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op2, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op2, TIPO2);
 	return 0;
 }
 
 int l2i(execucao *p) { //  Converte o valor do topo da pilha de long para int op: 0x88
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op2.tipoInt = (int) op1.tipoLong;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op2, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op2, TIPO1);
 	return 0;
 }
 
 int l2f(execucao *p) { //  Converte o valor do topo da pilha de long para float op: 0x89
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op2.tipoFloat = (float) op1.tipoLong;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op2, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op2, TIPO1);
 	return 0;
 }
 
 int l2d(execucao *p) { //  Converte o valor do topo da pilha de long para double op: 0x8A
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op2.tipoDouble = (double) op1.tipoLong;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op2, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op2, TIPO2);
 	return 0;
 }
 
 int f2i(execucao *p) { //  Converte o valor do topo da pilha de float para int op: 0x8B
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op2.tipoInt = (int) op1.tipoFloat;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op2, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op2, TIPO1);
 	return 0;
 }
 
 int f2l(execucao *p) { //  Converte o valor do topo da pilha de float para long op: 0x8C
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op2.tipoLong = (long long) op1.tipoFloat;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op2, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op2, TIPO2);
 	return 0;
 }
 
 int f2d(execucao *p) { //  Converte o valor do topo da pilha de float para double op: 0x8D
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op2.tipoDouble = (double) op1.tipoFloat;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op2, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op2, TIPO2);
 	return 0;
 }
 
 int d2i(execucao *p) { //  Converte o valor do topo da pilha de double para int op: 0x8E
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op2.tipoInt = (int) op1.tipoDouble;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op2, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op2, TIPO1);
 	return 0;
 }
 
 int d2l(execucao *p) { //  Converte o valor do topo da pilha de double para long op: 0x8F
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op2.tipoLong = (long long) op1.tipoDouble;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op2, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op2, TIPO2);
 	return 0;
 }
 
 int d2f(execucao *p) { //  Converte o valor do topo da pilha de double para float op: 0x90
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op2.tipoFloat = (float) op1.tipoDouble;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op2, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op2, TIPO1);
 	return 0;
 }
 
 int i2c(execucao *p) { //  Converte o valor do topo da pilha de int para char , cobre tambem o caso do byte - i2b op: 0x91 ,0x92
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op2.tipoInt = (char) op1.tipoInt;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op2, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op2, TIPO2);
 	return 0;
 }
 
 int i2s(execucao *p) { //  Converte o valor do topo da pilha de int para short - i2b op: 0x93
 	tipoOperando op1, op2;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	op2.tipoInt = (short) op1.tipoInt;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op2, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op2, TIPO2);
 	return 0;
 }
 
 //XcmpY -----------------------------------------------------------------------------------------------------------
 int lcmp(execucao *p) { //compara dois valores long 0x94
 	tipoOperando op1, op2, resultado;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	if (op1.tipoLong > op2.tipoLong) {
 		resultado.tipoInt = 1;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	} else if (op1.tipoLong == op2.tipoLong) {
 		resultado.tipoInt = 0;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	} else {
 		resultado.tipoInt = -1;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	}
 	return 0;
 }
 
 int fcmpl(execucao *p) { // comparação entre floats , caso NAN resultado -1 op: 0x95
 	tipoOperando op1, op2, resultado;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	if (op1.tipoFloat > op2.tipoFloat) {
 		resultado.tipoInt = 1;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	} else if (op1.tipoFloat == op2.tipoFloat) {
 		resultado.tipoInt = 0;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	} else if (op1.tipoFloat < op2.tipoFloat) {
 		resultado.tipoInt = -1;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	} else {
 		resultado.tipoInt = -1;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	}
 	return 0;
 }
 
 int fcmpg(execucao *p) { // comparação entre floats , caso NAN resultado 1 op: 0x96
 	tipoOperando op1, op2, resultado;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	if (op1.tipoFloat > op2.tipoFloat) {
 		resultado.tipoInt = 1;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	} else if (op1.tipoFloat == op2.tipoFloat) {
 		resultado.tipoInt = 0;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	} else if (op1.tipoFloat < op2.tipoFloat) {
 		resultado.tipoInt = -1;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	} else {
 		resultado.tipoInt = 1;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	}
 	return 0;
 }
 
 int dcmpl(execucao *p) { // comparação entre doubles , caso NAN resultado 1 op: 0x97
 	tipoOperando op1, op2, resultado;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	if (op1.tipoDouble > op2.tipoDouble) {
 		resultado.tipoInt = 1;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	} else if (op1.tipoDouble == op2.tipoDouble) {
 		resultado.tipoInt = 0;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	} else if (op1.tipoDouble < op2.tipoDouble) {
 		resultado.tipoInt = -1;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	} else {
 		resultado.tipoInt = -1;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	}
 	return 0;
 }
 
 int dcmpg(execucao *p) { // comparação entre doubles , caso NAN resultado 1 op: 0x98
 	tipoOperando op1, op2, resultado;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	if (op1.tipoDouble > op2.tipoDouble) {
 		resultado.tipoInt = 1;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	} else if (op1.tipoDouble == op2.tipoDouble) {
 		resultado.tipoInt = 0;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	} else if (op1.tipoDouble < op2.tipoDouble) {
 		resultado.tipoInt = -1;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	} else {
 		resultado.tipoInt = -1;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), resultado, TIPO1);
 	}
 	return 0;
 }
@@ -1434,7 +1434,7 @@ int ifeq(execucao *p) { // Compara o topo da pilha(int) com 0 , e dá branch op: 
 	short offset;
 	offset = (short) lerU2Codigo(p->frameAtual);
 	tipoOperando op1;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	offset -= 3; // para corrigir o PC
 	if (op1.tipoInt == 0) {
 		p->frameAtual->pc += offset;
@@ -1446,7 +1446,7 @@ int ifne(execucao *p) { // Compara o topo da pilha(int) com 0 , e dá branch op: 
 	short offset;
 	offset = (short) lerU2Codigo(p->frameAtual);
 	tipoOperando op1;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	offset -= 3; // para corrigir o PC
 	if (op1.tipoInt != 0) {
 		p->frameAtual->pc += offset;
@@ -1458,7 +1458,7 @@ int iflt(execucao *p) { // Compara o topo da pilha(int) com 0 , e dá branch op: 
 	short offset;
 	offset = (short) lerU2Codigo(p->frameAtual);
 	tipoOperando op1;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	offset -= 3; // para corrigir o PC
 	if (op1.tipoInt < 0) {
 		p->frameAtual->pc += offset;
@@ -1470,7 +1470,7 @@ int ifge(execucao *p) { // Compara o topo da pilha(int) com 0 , e dá branch op: 
 	short offset;
 	offset = (short) lerU2Codigo(p->frameAtual);
 	tipoOperando op1;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	offset -= 3; // para corrigir o PC
 	if (op1.tipoInt >= 0) {
 		p->frameAtual->pc += offset;
@@ -1482,7 +1482,7 @@ int ifgt(execucao *p) { // Compara o topo da pilha(int) com 0 , e dá branch op: 
 	short offset;
 	offset = (short) lerU2Codigo(p->frameAtual);
 	tipoOperando op1;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	offset -= 3; // para corrigir o PC
 	if (op1.tipoInt > 0) {
 		p->frameAtual->pc += offset;
@@ -1494,7 +1494,7 @@ int ifle(execucao *p) { // Compara o topo da pilha(int) com 0 , e dá branch op: 
 	short offset;
 	offset = (short) lerU2Codigo(p->frameAtual);
 	tipoOperando op1;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	offset -= 3; // para corrigir o PC
 	if (op1.tipoInt <= 0) {
 		p->frameAtual->pc += offset;
@@ -1506,8 +1506,8 @@ int if_icmpeq(execucao *p) { // Compara o topo da pilha(int) com 0 , e dá branch
 	short offset;
 	offset = (short) lerU2Codigo(p->frameAtual);
 	tipoOperando op1, op2;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	offset -= 3; // para corrigir o PC
 	if (op1.tipoInt == op2.tipoInt) {
 		p->frameAtual->pc += offset;
@@ -1519,8 +1519,8 @@ int if_icmpne(execucao *p) { // Compara o topo da pilha(int) com 0 , e dá branch
 	short offset;
 	offset = (short) lerU2Codigo(p->frameAtual);
 	tipoOperando op1, op2;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	offset -= 3; // para corrigir o PC
 	if (op1.tipoInt != op2.tipoInt) {
 		p->frameAtual->pc += offset;
@@ -1532,8 +1532,8 @@ int if_icmplt(execucao *p) { // Compara o topo da pilha(int) com 0 , e dá branch
 	short offset;
 	offset = (short) lerU2Codigo(p->frameAtual);
 	tipoOperando op1, op2;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	offset -= 3; // para corrigir o PC
 	if (op1.tipoInt < op2.tipoInt) {
 		p->frameAtual->pc += offset;
@@ -1545,8 +1545,8 @@ int if_icmpge(execucao *p) { // Compara o topo da pilha(int) com 0 , e dá branch
 	short offset;
 	offset = (short) lerU2Codigo(p->frameAtual);
 	tipoOperando op1, op2;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	offset -= 3; // para corrigir o PC
 	if (op1.tipoInt >= op2.tipoInt) {
 		p->frameAtual->pc += offset;
@@ -1558,8 +1558,8 @@ int if_icmpgt(execucao *p) { // Compara o topo da pilha(int) com 0 , e dá branch
 	short offset;
 	offset = (short) lerU2Codigo(p->frameAtual);
 	tipoOperando op1, op2;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	offset -= 3; // para corrigir o PC
 	if (op1.tipoInt > op2.tipoInt) {
 		p->frameAtual->pc += offset;
@@ -1571,8 +1571,8 @@ int if_icmple(execucao *p) { // Compara o topo da pilha(int) com 0 , e dá branch
 	short offset;
 	offset = (short) lerU2Codigo(p->frameAtual);
 	tipoOperando op1, op2;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	offset -= 3; // para corrigir o PC
 	if (op1.tipoInt <= op2.tipoInt) {
 		p->frameAtual->pc += offset;
@@ -1584,8 +1584,8 @@ int if_acmpeq(execucao *p) { // Compara o topo da pilha(int) com 0 , e dá branch
 	short offset;
 	offset = (short) lerU2Codigo(p->frameAtual);
 	tipoOperando op1, op2;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	offset -= 3; // para corrigir o PC
 	if (op1.tipoReferencia == op2.tipoReferencia) {
 		p->frameAtual->pc += offset;
@@ -1597,8 +1597,8 @@ int if_acmpne(execucao *p) { // Compara o topo da pilha(int) com 0 , e dá branch
 	short offset;
 	offset = (short) lerU2Codigo(p->frameAtual);
 	tipoOperando op1, op2;
-	op2 = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op2 = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	offset -= 3; // para corrigir o PC
 	if (op1.tipoReferencia != op2.tipoReferencia) {
 		p->frameAtual->pc += offset;
@@ -1621,7 +1621,7 @@ int jsr(execucao *p) {  // 0xA8
 	offset = lerU2Codigo(p->frameAtual);
 	offset -= 3; // serve para corrigir o offset do PC
 	op.tipoReferencia = p->frameAtual->pc;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	p->frameAtual->pc += offset;
 	return 0;
 }
@@ -1640,7 +1640,7 @@ int tableswitch(execucao *p) {
 	tipoOperando index;
 	pcVolta = p->frameAtual->pc - 1;
 
-	index = popOperando(&(p->frameAtual->topoPilhaOperandos)); // tirando o indeice do case da pilha
+	index = popOperand(&(p->frameAtual->topoPilhaOperandos)); // tirando o indeice do case da pilha
 
 	sizepads = (4 - (p->frameAtual->pc - p->frameAtual->codigoAExecutar) % 4)
 			% 4; // calculando quantos bits de pad são necessários
@@ -1680,7 +1680,7 @@ int lookupswitch(execucao *p) {
 	tipoOperando key;
 	endBaseInstr = p->frameAtual->pc - 1; // salva o edereço do opcode da instrução
 
-	key = popOperando(&(p->frameAtual->topoPilhaOperandos)); // tirando o indeice do case da pilha
+	key = popOperand(&(p->frameAtual->topoPilhaOperandos)); // tirando o indeice do case da pilha
 	sizepads = (4 - (p->frameAtual->pc - p->frameAtual->codigoAExecutar) % 4)
 			% 4; // calculando quantos bits de pad são necessários
 	for (i = 0; i < sizepads; ++i) {
@@ -1708,9 +1708,9 @@ int lookupswitch(execucao *p) {
 
 int ireturn(execucao *p) { // value -> empty , joga value na pilha de operandos  do frame que chamou op: 0xAC
 	tipoOperando op;
-	op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	popFrame(&(p->frameAtual));
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 1;
 }
 
@@ -1718,36 +1718,36 @@ int lreturn(execucao *p) { // value -> empty op: 0xAD
 
 	tipoOperando op;
 
-	op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	popFrame(&(p->frameAtual));
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 
 	return 1;
 }
 
 int freturn(execucao *p) { // value -> empty op: 0xAE
 	tipoOperando op;
-	op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	popFrame(&(p->frameAtual));
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 1;
 }
 
 int dreturn(execucao *p) { // value -> empty op: 0xAF
 	tipoOperando op;
 
-	op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	popFrame(&(p->frameAtual));
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 
 	return 1;
 }
 
 int areturn(execucao *p) { // value -> empty op: 0xB0
 	tipoOperando op;
-	op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	popFrame(&(p->frameAtual));
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	return 1;
 }
 
@@ -1805,7 +1805,7 @@ int getstatic(execucao *p) { // op: 0xB2
 
 		// Empilhamos esse operando relativemente inútil pois temos que empilhar algo dessa instrução
 		// Ele será descartado assim que o invokevirtual do print for chamado
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 	} else { // Senão, temos que buscar nos fields da classe requisitada
 
 		// Verificamos se estamos requisitando uma classe que já está carregada
@@ -1823,25 +1823,25 @@ int getstatic(execucao *p) { // op: 0xB2
 			// Agora vemos o tipo do field para podermos carregá-lo na pilha
 			if (descritor[0] == 'B' || descritor[0] == 'C') {
 				op.tipoInt = fieldAProcurar->valor.tipoChar;
-				pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+				pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 			} else if (descritor[0] == 'S') {
 				op.tipoInt = fieldAProcurar->valor.tipoShort;
-				pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+				pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 			} else if (descritor[0] == 'D') {
 				op.tipoDouble = fieldAProcurar->valor.tipoDouble;
-				pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+				pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 			} else if (descritor[0] == 'F') {
 				op.tipoFloat = fieldAProcurar->valor.tipoFloat;
-				pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+				pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 			} else if (descritor[0] == 'I' || descritor[0] == 'Z') {
 				op.tipoInt = fieldAProcurar->valor.tipoInt;
-				pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+				pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 			} else if (descritor[0] == 'J') {
 				op.tipoLong = fieldAProcurar->valor.tipoLong;
-				pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
+				pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO2);
 			} else if (descritor[0] == 'L' || descritor[0] == '[') {
 				op.tipoReferencia = fieldAProcurar->valor.tipoReferencia;
-				pushOperando(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
+				pushOperand(&(p->frameAtual->topoPilhaOperandos), op, TIPO1);
 			}
 		}
 	}
@@ -1898,7 +1898,7 @@ int putstatic(execucao *p) { // 0xB3
 				nomeClasse, nomeField, descritor);
 		exit(1);
 	} else {
-		op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+		op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 		insereValorStaticField(p->pInicioLista, nomeClasse, nomeField, op);
 	}
 
@@ -1915,7 +1915,7 @@ int getfield(execucao *p) { //recebe um index e empilha o valor do campo corresp
 	char *nomeField, *descritorField;
 	tipoOperando objectref, value;
 	index = lerU2Codigo(p->frameAtual);
-	objectref = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	objectref = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	obj = (object*) objectref.tipoReferencia;
 	// resolução de nomes -----------------------
 	nameAndTypeIndexAux =
@@ -1931,25 +1931,25 @@ int getfield(execucao *p) { //recebe um index e empilha o valor do campo corresp
 	campo = buscaFieldNome(nomeField, descritorField, obj);
 	if (descritorField[0] == 'B' || descritorField[0] == 'C') {
 		value.tipoInt = campo->valor.tipoChar;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), value, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), value, TIPO1);
 	} else if (descritorField[0] == 'S') {
 		value.tipoInt = campo->valor.tipoShort;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), value, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), value, TIPO1);
 	} else if (descritorField[0] == 'D') {
 		value.tipoDouble = campo->valor.tipoDouble;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), value, TIPO2);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), value, TIPO2);
 	} else if (descritorField[0] == 'F') {
 		value.tipoFloat = campo->valor.tipoFloat;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), value, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), value, TIPO1);
 	} else if (descritorField[0] == 'I' || descritorField[0] == 'Z') {
 		value.tipoInt = campo->valor.tipoInt;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), value, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), value, TIPO1);
 	} else if (descritorField[0] == 'J') {
 		value.tipoLong = campo->valor.tipoLong;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), value, TIPO2);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), value, TIPO2);
 	} else if (descritorField[0] == 'L' || descritorField[0] == '[') {
 		value.tipoReferencia = campo->valor.tipoReferencia;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), value, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), value, TIPO1);
 	}
 	return 0;
 }
@@ -1963,8 +1963,8 @@ int putfield(execucao *p) { //recebe um index e um valor e seta o campo correspo
 	char *nomeField, *descritorField;
 	tipoOperando objectref, value;
 	index = lerU2Codigo(p->frameAtual);
-	value = popOperando(&(p->frameAtual->topoPilhaOperandos));
-	objectref = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	value = popOperand(&(p->frameAtual->topoPilhaOperandos));
+	objectref = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	obj = (object*) objectref.tipoReferencia;
 	nameAndTypeIndexAux =
 			p->frameAtual->constantPool[index].info.fieldRefInfo.nameAndTypeIndex;
@@ -2025,38 +2025,38 @@ int invokevirtual(execucao *p) { // op: 0xB6
 			&& (strcmp(nomeMetodo, "println") == 0
 					|| strcmp(nomeMetodo, "print") == 0)) {
 		if (descritor[1] == 'I') {
-			op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+			op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 			printf("%d", op.tipoInt);
 		} else if (descritor[1] == 'J') {
-			op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+			op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 			printf("%lld", op.tipoLong);
 		} else if (descritor[1] == 'F') {
-			op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+			op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 			printf("%g", op.tipoFloat);
 		} else if (descritor[1] == 'D') {
-			op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+			op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 			printf("%g", op.tipoDouble);
 		} else if (descritor[1] == 'S') {
-			op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+			op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 			printf("%hi", (short) op.tipoInt);
 		} else if (descritor[1] == 'C') {
-			op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+			op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 			printf("%c", (char) op.tipoInt);
 		} else if (descritor[1] == 'L') {
-			op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+			op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 			if (strstr(descritor, "java/lang/String") != NULL ) {
 				printf("%s", (char*) op.tipoReferencia);
 			} else {
 				printf("%p", op.tipoReferencia);
 			}
 		} else if (descritor[1] == 'Z') {
-			op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+			op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 			printf("%s", !op.tipoInt ? "false" : "true");
 		} else if (descritor[1] == 'B') {
-			op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+			op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 			printf("%d", op.tipoInt);
 		} else if (descritor[1] == '[') {
-			op = popOperando(&(p->frameAtual->topoPilhaOperandos));
+			op = popOperand(&(p->frameAtual->topoPilhaOperandos));
 			printf("%p", op.tipoReferencia);
 		}
 
@@ -2065,7 +2065,7 @@ int invokevirtual(execucao *p) { // op: 0xB6
 		}
 
 		// Tirando a referência desnecessária para essa simulação
-		popOperando(&(p->frameAtual->topoPilhaOperandos));
+		popOperand(&(p->frameAtual->topoPilhaOperandos));
 
 	} else {
 		numArgs = contaArgumentosMetodo(descritor);
@@ -2202,7 +2202,7 @@ int new_(execucao *p) { // op: 0xBB
 
 	objRef.tipoReferencia = obj;
 
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), objRef, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), objRef, TIPO1);
 
 	return 0;
 }
@@ -2213,7 +2213,7 @@ int newarray(execucao *p) { // recebe da pilha um size e do código um tipo e alo
 	Vetor *vet;
 	vet = malloc(sizeof(Vetor));
 	vet->type = lerU1Codigo(p->frameAtual);
-	count = popOperando(&(p->frameAtual->topoPilhaOperandos)); // tamanho do vetor
+	count = popOperand(&(p->frameAtual->topoPilhaOperandos)); // tamanho do vetor
 	vet->size = count.tipoInt;
 	switch (vet->type) {
 	case T_BOOLEAN:
@@ -2245,7 +2245,7 @@ int newarray(execucao *p) { // recebe da pilha um size e do código um tipo e alo
 		exit(1);
 	}
 	arrayref.tipoReferencia = vet;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), arrayref, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), arrayref, TIPO1);
 	return 0;
 }
 
@@ -2255,7 +2255,7 @@ int anewarray(execucao *p) { // cria um array de  referencias 0xBD
 	Vetor *vet;
 	vet = calloc(1, sizeof(Vetor));
 	index = lerU2Codigo(p->frameAtual);
-	count = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	count = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	if (count.tipoInt < 0) {
 		printf(
 				"tamanho do vetor em anewarray menor que  zero , lançar exceção - NegativeArraySize");
@@ -2265,17 +2265,17 @@ int anewarray(execucao *p) { // cria um array de  referencias 0xBD
 	vet->type = T_INT;
 	vet->array = calloc(vet->size, sizeof(tipoOperando));
 	arrayref.tipoReferencia = vet;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), arrayref, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), arrayref, TIPO1);
 	return 0;
 }
 
 int arraylength(execucao *p) { //retona pela pilha o tamanho de um array op: 0xBE
 	tipoOperando arrayref, length;
 	Vetor *vet;
-	arrayref = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	arrayref = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	vet = arrayref.tipoReferencia;
 	length.tipoInt = vet->size;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), length, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), length, TIPO1);
 	return 0;
 }
 
@@ -2294,12 +2294,12 @@ int multianewarray(execucao *p) {
 		exit(1);
 	} else {
 		for (i = 0; i < dimensions; ++i) {
-			count[i] = popOperando(&(p->frameAtual->topoPilhaOperandos));
+			count[i] = popOperand(&(p->frameAtual->topoPilhaOperandos));
 			count1[i] = count[i].tipoInt; // gambiarra
 		}
 		vet = alocaMultiArray(dimensions, count1);
 		arrayref.tipoReferencia = vet;
-		pushOperando(&(p->frameAtual->topoPilhaOperandos), arrayref, TIPO1);
+		pushOperand(&(p->frameAtual->topoPilhaOperandos), arrayref, TIPO1);
 	}
 	return 0;
 }
@@ -2308,7 +2308,7 @@ int ifnull(execucao *p) { // Compara o topo da pilha(int) com 0 , e dá branch op
 	u2 offset;
 	offset = lerU2Codigo(p->frameAtual);
 	tipoOperando op1;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	offset -= 3; // para corrigir o PC
 	if (op1.tipoReferencia == NULL ) {
 		p->frameAtual->pc += offset;
@@ -2320,7 +2320,7 @@ int ifnonnull(execucao *p) { // Compara o topo da pilha(int) com 0 , e dá branch
 	u2 offset;
 	offset = lerU2Codigo(p->frameAtual);
 	tipoOperando op1;
-	op1 = popOperando(&(p->frameAtual->topoPilhaOperandos));
+	op1 = popOperand(&(p->frameAtual->topoPilhaOperandos));
 	offset -= 3; // para corrigir o PC
 	if (op1.tipoReferencia != NULL ) {
 		p->frameAtual->pc += offset;
@@ -2351,7 +2351,7 @@ int jsr_w(execucao *p) { // similar ao goto mas joga o pc na pilha op: 0xC9
 	offset = (offset << 16) | (off2);
 	offset -= 5; // Para  corrigir o PC
 	op1.tipoReferencia = p->frameAtual->pc;
-	pushOperando(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
+	pushOperand(&(p->frameAtual->topoPilhaOperandos), op1, TIPO1);
 	p->frameAtual->pc += offset;
 	return 0;
 }

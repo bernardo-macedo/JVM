@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
 
 		strcpy(nomeClasse, argv[1]);
 
-		inicializaPilhaFrames(&(p->frameAtual));
+		stackFrameInit(&(p->frameAtual));
 		inicializaClassFileLista(&(p->pInicioLista));
 
 		preparaExecucaoMetodo(nomeClasse, "main", "([Ljava/lang/String;)V", p,
